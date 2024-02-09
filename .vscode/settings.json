@@ -49,4 +49,5 @@
         "*.unit.spec.ts": "Test-jsx",
         "*.e2e.spec.ts": "Test-ts",
     },
+    "typescript.tsdk": "node_modules/typescript/lib",
 }
