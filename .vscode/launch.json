@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach Docker WS",
+      "port": 9229,
+      "restart": true,
+      "stopOnEntry": false,
+      "protocol": "inspector",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/usr/src/project",
+      "skipFiles": [ 
+        "<node_internals>/**/*.js",
+      ]
+    },
+  ]
+}

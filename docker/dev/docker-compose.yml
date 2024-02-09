@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+
+  url-shortener-postgre:
+    image: postgres:16.1
+    command: ["postgres", "-c", "log_statement=${DB_LOG_LEVEL:-all}"]
+    restart: "no"
+    networks:
+      - url-shortener-network
+    ports:
+      - ${DATABASE_PORT:-5432}:5432
+    environment:
+      - POSTGRES_USER=${DB_USER:-url-shortener-db-user}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-url-shortener-db-password}
+      - POSTGRES_DB=${DB_DATABASE:-url-shortener}
+      
+  url-shortener-postgre-test:
+    image: postgres:16.1
+    command: ["postgres", "-c", "log_statement=${DB_LOG_LEVEL:-all}"]
+    restart: "no"
+    networks:
+      - url-shortener-network
+    ports:
+      - ${DATABASE_PORT_TEST:-5433}:5433
+    environment:
+      - POSTGRES_USER=${DB_USER_TEST:-url-shortener-db-user-test}
+      - POSTGRES_PASSWORD=${DB_PASSWORD_TEST:-url-shortener-db-password-test}
+      - POSTGRES_DB=${DB_DATABASE_TEST:-url-shortener-test}
+    
+  url-shortener-server:
+      build:
+        context: .
+        dockerfile: ./images/server/Dockerfile
+      restart: "no"
+      ports:
+      - ${NODE_PORT:-4000}:4000
+      - ${NODE_DEBUGGER_PORT:-9229}:9229
+      networks:
+      - url-shortener-network
+      volumes:
+      - ../..:/usr/src/project
+      - ./images/server/entrypoint.sh:/entrypoint.sh
+      depends_on:
+      - url-shortener-postgre
+networks:
+  url-shortener-network:
+    external: false
