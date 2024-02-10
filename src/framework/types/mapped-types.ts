@@ -1,15 +1,10 @@
 import {
     IntersectionType, OmitType, PartialType, PickType, 
-} from "@nestjs/mapped-types";
+} from "@nestjs/swagger";
 import { EntityModel, } from "@src/framework/clean-architecture/domain/entity.model";
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 import { ClassType, } from "@src/framework/types/type-utils";
 
-
-// ? info: I am not using nestjs I am using the nestjs swagger package to extract the partial types, 
-// ? which are a really useful type generators
-
-export const Metadata_Field_Identifier = Symbol("mode-version");
 
 export function CreationModel<T extends EntityModel>(classRef : ClassType<T>) {
     return ModelOmitType(classRef, ["id", "createdAt", "updatedAt",]);
