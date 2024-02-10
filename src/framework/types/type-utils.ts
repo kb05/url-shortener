@@ -39,3 +39,20 @@ export type DeepPartial<T> = T | (T extends Array<infer U>
             ? Set<DeepPartial<M>>
             : T extends object ? { [K in keyof T] ?: DeepPartial<T[K]>; } : T
 );
+
+
+/**
+ * This function is a type guard that verify if the provided value is a valid value of the provided enum.
+ * In other words, this function verify if the value is a valid enum member.
+ *
+ * @export
+ * @template T
+ * @param {*} something
+ * @param {T} enumObject
+ * @return {*}  {something is T[keyof T]}
+ */
+export function isEnumValue<T extends { [k : string] : unknown }>(
+    something : unknown, enumObject : T
+) : something is T[keyof T] {
+    return Object.values(enumObject).includes(something);
+}

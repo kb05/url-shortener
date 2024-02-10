@@ -1,11 +1,16 @@
 import { applyDecorators, } from "@nestjs/common";
+import { isEnumValue, } from "@src/framework/types/type-utils";
+import { AppStringSize, } from "@src/framework/validators/string-size-validator";
 import {
     isNotEmpty,
     IsNotEmpty,
     IsString,
+    Min,
     ValidationOptions,
 } from "class-validator";
-import { isString, } from "lodash";
+import {
+    cloneDeep, isObject, isString, 
+} from "lodash";
 
 /**
  * A decorator that check that the field is a not empty string.
@@ -15,12 +20,34 @@ import { isString, } from "lodash";
  * @param {(((new (...args: any[]) => any) | [new (...args: any[]) => any]))} targetType
  * @return {*}  {PropertyDecorator}
  */
-export function IsNotEmptyString(validationOptions ?: ValidationOptions) : PropertyDecorator {
+export function IsNotEmptyString(
+    param ?: AppStringSize |
+    (
+        ValidationOptions & {
+            size ?: AppStringSize
+        }
+    )
+) : PropertyDecorator {
+    
+    const validators : PropertyDecorator[] = [];
 
-    return applyDecorators(
-        IsString(validationOptions),
-        IsNotEmpty(validationOptions),
-    );
+    const validationOptions = isObject(param) ? param : undefined;
+
+    const options = cloneDeep(validationOptions);
+
+    const size = isEnumValue(param, AppStringSize) ? param : options?.size;
+    
+    if (size) {
+        delete options?.size;
+        validators.push(Min(size));
+    }
+
+
+    validators.push(IsString(validationOptions));
+    validators.push(IsNotEmpty(validationOptions));
+
+
+    return applyDecorators(...validators);
 }
 
 /**

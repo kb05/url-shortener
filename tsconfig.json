@@ -117,7 +117,7 @@
   },
   "include": [
     "src/**/*",
-    "database/generate-migration-config"
+    "prisma/prisma-environment",
   ],
   "exclude": [
     "dist",

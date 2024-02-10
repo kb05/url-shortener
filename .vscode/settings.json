@@ -50,4 +50,5 @@
         "*.e2e.spec.ts": "Test-ts",
     },
     "typescript.tsdk": "node_modules/typescript/lib",
+    "prisma.fileWatcher": true,
 }

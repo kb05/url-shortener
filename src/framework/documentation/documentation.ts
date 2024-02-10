@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { applyDecorators, } from "@nestjs/common";
 import {
-    ApiProperty, ApiPropertyOptions, 
+    ApiProperty, 
 } from "@nestjs/swagger";
 import {
     Expose, 
@@ -12,7 +12,10 @@ import {
 } from "lodash";
 
 
-export type DocumentationProperties = ApiPropertyOptions
+export type DocumentationProperties = {
+    description ?: string;
+    example ?: unknown;
+}
 
 /**
  * The purpose of this decorator is abstract the api documentation from the library that will be 
