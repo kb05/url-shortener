@@ -5,7 +5,7 @@ yarn install
 
 yarn prisma generate
 
-# yarn migration:run
+yarn prisma migrate deploy
 
 # yarn seed
 

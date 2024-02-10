@@ -5,7 +5,10 @@ import {
     isNotEmpty,
     IsNotEmpty,
     IsString,
-    Min,
+    
+    
+    MaxLength,
+    
     ValidationOptions,
 } from "class-validator";
 import {
@@ -39,7 +42,7 @@ export function IsNotEmptyString(
     
     if (size) {
         delete options?.size;
-        validators.push(Min(size));
+        validators.push(MaxLength(size));
     }
 
 

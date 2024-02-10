@@ -10,10 +10,12 @@ datasource db {
   url      = env("PRISMA_DATABASE_URL")
 }
 
-model shortURLEquivalence {
+model PrismaShortURLEquivalence {
     id            Int      @id @default(autoincrement())
     url           String   @db.VarChar(512)
     shortURL      String   @db.VarChar(128)
     createdAt     DateTime @default(now()) @db.Timestamptz
     updatedAt     DateTime @updatedAt @db.Timestamptz
+
+    @@map("short-url-equivalences")
 }

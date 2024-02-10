@@ -4,7 +4,7 @@ import {
 } from "@nestjs/swagger";
 
 export function configureSwagger(app : INestApplication) {
-
+    
     const config = new DocumentBuilder()
         .setTitle("URL Shortener")
         .setDescription("The URL shortener description")

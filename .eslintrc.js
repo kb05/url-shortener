@@ -74,7 +74,7 @@ module.exports = {
       }
     ], 
    "unused-imports/no-unused-imports": "error",
-   "max-len": ["error", { "code": 120, "tabWidth": 2 }],
+   "max-len": ["error", { "code": 150, "tabWidth": 2 }],
    "function-call-argument-newline": ["error", "consistent"],
    "lines-between-class-members": ["error", "always"],
    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 0 }],
