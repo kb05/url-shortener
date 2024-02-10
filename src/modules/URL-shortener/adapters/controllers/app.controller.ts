@@ -5,13 +5,13 @@ import {
 import { ApiResponse, } from "@nestjs/swagger";
 
 import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
+
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import {
     CreateShortURLEquivalenceAsUser,
 } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence-as-user.model";
-import {
-    CreateShortURLEquivalence,
-} from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
+
+import { CreateShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import {
     ShortURLEquivalencePrismaRepository,
@@ -31,15 +31,19 @@ export class ShortURLController {
         type: ShortURLEquivalence,
     })
     async getHello(
-        @Body() params : CreateShortURLEquivalenceAsUser
-    ) : Promise<ShortURLEquivalence> {
-        
-        return this.shortURLEquivalencePrismaRepository.create(
+    @Body() params : CreateShortURLEquivalenceAsUser
+    ) {
+                
+        this.shortURLEquivalencePrismaRepository.create(
             await transformAndValidate(CreateShortURLEquivalence, {
-                shortURL : "http://localhost/test",
-                url      : "http://localhost/test",
+                url      : "https://test.com",
+                shortURL : "https://test.com",
             })
         );
+        
+        const aux = await this.shortURLEquivalencePrismaRepository.test();
+
+        return aux;      
 
         // this.prismaService.shortURLEquivalence.update()
 

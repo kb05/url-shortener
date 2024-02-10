@@ -14,4 +14,4 @@ export type PrismaEntity = {
     updatedAt : Date,
 }
 
-export type CreationPrismaEntityFields<T extends PrismaEntity> = Omit<T, "id"|"createdAt"|"updatedAT">
+export type CreationPrismaEntityFields<T extends PrismaEntity> = Omit<T, "id" | "createdAt" | "updatedAt">

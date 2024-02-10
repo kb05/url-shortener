@@ -9,11 +9,11 @@ export type VirtualPrismaRepository<T extends PrismaEntity> = {
 }
 
 export function generateVirtualPrismaRepositoryReference<T extends PrismaEntity>(
-    name : string,
+    name : (keyof GlobalPrismaRepositories) & string,
 ) {
     return {
         name,
         typeReference: undefined,
-    } as unknown as  VirtualPrismaRepository<T>;
+    } as unknown as VirtualPrismaRepository<T>;
     
 }

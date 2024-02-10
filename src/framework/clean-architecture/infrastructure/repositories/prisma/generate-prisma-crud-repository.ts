@@ -3,19 +3,25 @@
 import { Injectable, } from "@nestjs/common";
 import { PrismaClient, } from "@prisma/client";
 import { EntityModel, } from "@src/framework/clean-architecture/domain/entity.model";
+import { PagePaginationOutput, } from "@src/framework/clean-architecture/domain/types/page-pagination-output.model";
+import { PaginationInput, } from "@src/framework/clean-architecture/domain/types/pagination.types";
+
+
 import {
     VirtualPrismaRepository,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/generate-virtual-prisma-repository-reference";
+import { prismaPaginatedResultToPaginatePrisma, } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/paginate-prisma-result-to-pagination-result";
 import {
     CreationPrismaEntityFields, PrismaEntity, 
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/prisma.types";
 import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
-
 import {
     ClassType,
     DeepPartial, OmitFunctions, 
 } from "@src/framework/types/type-utils";
 import { transformUnknownAndValidate, } from "@src/framework/validators/class-validator-transform";
+import { omit, } from "lodash";
+import { createPaginator, } from "prisma-pagination";
 
 
 /**
@@ -26,6 +32,9 @@ export type EntityProperties<T> = OmitFunctions<Omit<T, "createdAt" | "id" | "up
 export type OmitDeepProperties<T> = T extends object ? {
     [K in keyof EntityProperties<T>] :  OmitDeepProperties<T[K]>
 } : T
+
+const paginate = createPaginator({});
+
 
 export function generatePrismaCrudRepository<
     PrismaEntityType extends PrismaEntity,
@@ -73,8 +82,9 @@ export function generatePrismaCrudRepository<
 
         abstract createModelInformationToEntity(
             createModelInformation : CreateModelInformation
-        ) : CreationPrismaEntityFields<PrismaEntityFields>
+        ) : CreationPrismaEntityFields<PrismaEntityFields>|Promise<CreationPrismaEntityFields<PrismaEntityFields>>
 
+        
         public async create(createModelInformation : CreateModelInformation) : Promise<Model> {
 
             const validatedModelInformation = await transformUnknownAndValidate(
@@ -84,72 +94,94 @@ export function generatePrismaCrudRepository<
 
             const parsedInformation = await this.createModelInformationToEntity(validatedModelInformation);
 
-            const entity = await this.proxyPrismaRepository.create(parsedInformation);
+            const entity = await this.proxyPrismaRepository.create({
+                data: parsedInformation,
+            });
 
             return this.entityToModel(entity);
         }
 
-        // public async findById(id : Model["id"]) : Promise<Model | undefined> {
+        public async findById(id : Model["id"]) : Promise<Model | undefined> {
 
-        //     const entity = await this.internalRepository.findOneBy({
-        //         id,
-        //     } as any);
+            const entity = await this.internalPrismaRepository.findFirst({
+                where: {
+                    id,
+                },
+            });
 
-        //     if (!entity) {
-        //         return undefined;
-        //     }
+            if (!entity) {
+                return undefined;
+            }
 
-        //     return this.entityToModel(entity);
-        // }
-
-
-        // public async deleteById(id : Model["id"]) : Promise<boolean>{
-        //     const result = await this.internalRepository.delete(id);
-
-        //     return (result.affected ?? 0) > 0;
-        // }
+            return this.entityToModel(entity as any);
+        }
 
 
-        // public async saveModel(model : Model) : Promise<Model>{
+        public async deleteById(id : Model["id"]) : Promise<boolean>{
+           
+            try {
+                await this.internalPrismaRepository.delete({
+                    where: {
+                        id,
+                    },
+                }) as unknown as (PrismaEntityFields | undefined);
 
-        //     const validatedModel = await transformUnknownAndValidate(ModelClass, model);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
 
-        //     const entity = await this.modelToEntity(validatedModel);
 
-        //     const savedEntity = await this.internalRepository.save(entity as unknown as DeepPartial<Entity>);
+        public async saveModel(model : Model) : Promise<Model>{
 
-        //     return this.entityToModel(savedEntity);
-        // }
+            const validatedModel = await transformUnknownAndValidate(ModelClass, model);
 
-        // protected async findPaginated(
-        //     {
-        //         pagination,
-        //         options = {},
-        //     } : {
-        //         pagination : PaginationInput,
-        //         options ?: FindManyOptions<Entity>
-        //     },
-        // ) : Promise<PagePaginationOutput<Entity>> {
-    
-    
-        //     if (!isNumber(pagination.page) || !isNumber(pagination.limit)) {
-        //         throw new Error("The \"page\" and \"limit\" properties must be numbers.");
-        //     }
-    
-        //     const queryOptions = _.cloneDeep(options);
-    
-        //     if (isObject(queryOptions.where)) {
-        //         queryOptions.where = generateQueryOptionsWithoutUndefinedConditions(queryOptions.where);
-        //     }
-    
-        //     const paginationResult = await paginate<Entity>(this.internalRepository, {
-        //         ...pagination,
-        //         countQueries: true,
-        //     }, queryOptions);
-    
-    
-        //     return nestjsTypeormPaginationToPagePaginationOutput<Entity>(paginationResult);
-        // }
+            const entity = await this.modelToEntity(validatedModel);
+
+            const savedEntity = await this.internalPrismaRepository.update({
+                where: {
+                    id: entity.id,
+                },
+                data: {
+                    ...entity,
+                    updatedAt: new Date(),
+                } as any,
+            }) as unknown as PrismaEntityFields;
+
+            return this.entityToModel(savedEntity);
+        }
+
+        protected async findPaginated<
+            PaginationOptions extends (Parameters<EntityRepository["findMany"]>[0])
+        >(
+            {
+                pagination,
+                options,
+            } : {
+                pagination : PaginationInput
+                options ?: Parameters<EntityRepository["findMany"]>[0] & {
+                    select ?: never
+                }
+            },
+        ) : Promise<PagePaginationOutput<PrismaEntityFields>> {
+                       
+            const paginationOptions = omit(options, ["select",]);
+
+            const paginatedResult = await paginate(
+                this.internalPrismaRepository,
+                paginationOptions,
+                {
+                    page    : pagination.page,
+                    perPage : pagination.limit,
+                }
+            );
+            
+            
+            return prismaPaginatedResultToPaginatePrisma<PrismaEntityFields>(
+                paginatedResult as any
+            );
+        }
 
     }
 

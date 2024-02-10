@@ -6632,6 +6632,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prisma-pagination@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "prisma-pagination@npm:0.2.3"
+  checksum: 10c0/6a5365d8f7f7cbb1753340a9585150c9490fe0c2f2d34e108508de9e5ae5817e0746bb54848cc43113bdfa4e9108186bd92f713ae3058d67ccde2eea5b038382
+  languageName: node
+  linkType: hard
+
 "prisma@npm:^5.9.1":
   version: 5.9.1
   resolution: "prisma@npm:5.9.1"
@@ -6813,6 +6820,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     prettier: "npm:^3.0.0"
     prisma: "npm:^5.9.1"
+    prisma-pagination: "npm:^0.2.3"
     reflect-metadata: "npm:^0.2.0"
     rxjs: "npm:^7.8.1"
     short-unique-id: "npm:^5.0.3"

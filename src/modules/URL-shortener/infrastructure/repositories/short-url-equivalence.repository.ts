@@ -1,14 +1,15 @@
 import { Injectable, } from "@nestjs/common";
-import { PrismaShortURLEquivalence, } from "@prisma/client";
+import {
+    PrismaShortURLEquivalence, 
+} from "@prisma/client";
 import {
     generatePrismaCrudRepository,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/generate-prisma-crud-repository";
 import {
     generateVirtualPrismaRepositoryReference,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/generate-virtual-prisma-repository-reference";
-import { CreationPrismaEntityFields, } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/prisma.types";
-import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 
+import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 
 import {
     CreateShortURLEquivalence,
@@ -20,20 +21,20 @@ import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/s
 export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepository({
     CreateModelInformationClass   : CreateShortURLEquivalence,
     ModelClass                    : ShortURLEquivalence,
-    entityVirtualPrismaRepository : generateVirtualPrismaRepositoryReference<PrismaShortURLEquivalence>("shortURLEquivalence"),
+    entityVirtualPrismaRepository : generateVirtualPrismaRepositoryReference<PrismaShortURLEquivalence>("prismaShortURLEquivalence"),
 }) {
        
     async entityToModel
     (
-        entity : ShortURLEquivalence
-    ) : Promise<ShortURLEquivalence> {
-        const result = await transformAndValidate(ShortURLEquivalence, entity);
-
-        return result;
+        entity : PrismaShortURLEquivalence
+    ) {
+        return transformAndValidate(ShortURLEquivalence, {
+            ...entity, 
+        });
     }
   
     
-    modelToEntity(model : ShortURLEquivalence) : PrismaShortURLEquivalence {
+    modelToEntity(model : ShortURLEquivalence){
         return {
             createdAt : model.createdAt,
             id        : model.id,
@@ -43,7 +44,9 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         };
     }
 
-    createModelInformationToEntity(createModelInformation : CreateShortURLEquivalence) : CreationPrismaEntityFields<PrismaShortURLEquivalence> {
+    createModelInformationToEntity(
+        createModelInformation : CreateShortURLEquivalence
+    ) {
         return {
             shortURL : createModelInformation.shortURL,
             url      : createModelInformation.url,
@@ -52,11 +55,25 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
     }
 
 
-    public test() {
+    async test() {
         
-        return this.internalPrismaRepository.findFirst({
-            where: {},
+        const result = await this.findPaginated({
+            pagination: {
+                limit : 3,
+                page  : 1,
+            }, 
+            options: {
+                where: {
+                    id: undefined,
+                },
+                orderBy: {
+                    createdAt: "desc",
+                },
+            },
         });
+
+        
+        return result as any;
         
     }
 
