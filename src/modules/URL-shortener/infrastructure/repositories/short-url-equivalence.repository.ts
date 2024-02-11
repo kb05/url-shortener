@@ -54,27 +54,4 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
       
     }
 
-
-    async test() {
-        
-        const result = await this.findPaginated({
-            pagination: {
-                limit : 3,
-                page  : 1,
-            }, 
-            options: {
-                where: {
-                    id: undefined,
-                },
-                orderBy: {
-                    createdAt: "desc",
-                },
-            },
-        });
-
-        
-        return result as any;
-        
-    }
-
 }

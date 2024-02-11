@@ -152,9 +152,7 @@ export function generatePrismaCrudRepository<
             return this.entityToModel(savedEntity);
         }
 
-        protected async findPaginated<
-            PaginationOptions extends (Parameters<EntityRepository["findMany"]>[0])
-        >(
+        protected async findPaginated(
             {
                 pagination,
                 options,
