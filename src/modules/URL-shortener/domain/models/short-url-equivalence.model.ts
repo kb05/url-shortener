@@ -3,6 +3,9 @@ import { Documentation, } from "@src/framework/documentation/documentation";
 import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";
 import { IsValidUrl, } from "@src/framework/validators/is-valid-url.validator";
 import { AppStringSize, } from "@src/framework/validators/string-size-validator";
+import {
+    IsValidShortedCode, 
+} from "@src/modules/URL-shortener/domain/validations/is-valid-short-code";
 
 
 export class ShortURLEquivalence extends EntityModel {
@@ -20,8 +23,9 @@ export class ShortURLEquivalence extends EntityModel {
         description : "The shortened url",
         example     : "https://www.reactable.ai/",
     })
-    @IsValidUrl()
     @IsNotEmptyString(AppStringSize.SHORT)
-    public shortURL ! : string;
+    @IsValidShortedCode()
+    public shortUUID ! : string;
+    
     
 }

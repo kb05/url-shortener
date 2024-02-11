@@ -9,6 +9,9 @@ import {
 } from "@nestjs/common";
 import { HttpAdapterHost, } from "@nestjs/core";
 import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
+import {
+    get, 
+} from "lodash";
 
   
 @Catch()
@@ -30,6 +33,11 @@ export class ExceptionsFilter implements ExceptionFilter {
         exception instanceof HttpException
             ? exception.getStatus()
             : HttpStatus.INTERNAL_SERVER_ERROR;
+        
+        if (httpStatus === 400) {
+            httpAdapter.reply(ctx.getResponse(), get(exception, "response"), httpStatus);
+            return;
+        }
   
         const responseBody = {
             statusCode : httpStatus,

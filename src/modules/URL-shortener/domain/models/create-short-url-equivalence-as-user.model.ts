@@ -3,6 +3,7 @@ import { Documentation, } from "@src/framework/documentation/documentation";
 import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";
 import { IsValidUrl, } from "@src/framework/validators/is-valid-url.validator";
 import { AppStringSize, } from "@src/framework/validators/string-size-validator";
+import { IsValidShortedCode, } from "@src/modules/URL-shortener/domain/validations/is-valid-short-code";
 import { IsOptional, } from "class-validator";
 
 
@@ -22,8 +23,7 @@ export class CreateShortURLEquivalenceAsUser extends Model {
         description : "The shortened url",
         example     : "https://www.reactable.ai/",
     })
-    @IsValidUrl()
-    @IsNotEmptyString(AppStringSize.SHORT)
+    @IsValidShortedCode()
     @IsOptional()
     public short ?: string;
     

@@ -12,10 +12,10 @@ export class DuplicatedShortURLError extends ConflictDomainError {
         example     : "https://www.short-url/xyz",
     })
     @IsString()
-    public shortURL ! : ShortURLEquivalence["shortURL"];
+    public shortUUID! : ShortURLEquivalence["shortUUID"];
     
     
     public describe() : string {
-        return `Already exists an short url equivalence with url: ${this.shortURL}.`;
+        return `Already exists an short url equivalence with url: ${this.shortUUID}.`;
     }
 }

@@ -10,7 +10,7 @@ import {
 import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/short-url-equivalence.repository";
 import {
     ShortURLEquivalencePrismaRepository,
-} from "@src/modules/URL-shortener/infrastructure/repositories/short-url-equivalence.repository";
+} from "@src/modules/URL-shortener/infrastructure/repositories/short-url-equivalence.prisma-repository";
 
 @Module({
     imports: [

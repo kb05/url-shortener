@@ -13,7 +13,7 @@ datasource db {
 model PrismaShortURLEquivalence {
     id            Int      @id @default(autoincrement())
     url           String   @db.VarChar(512)
-    shortURL      String   @db.VarChar(128)
+    shortUUID      String   @db.VarChar(128)
     createdAt     DateTime @default(now()) @db.Timestamptz
     updatedAt     DateTime @updatedAt @db.Timestamptz
 

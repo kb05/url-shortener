@@ -39,7 +39,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         return {
             createdAt : model.createdAt,
             id        : model.id,
-            shortURL  : model.shortURL,
+            shortUUID : model.shortUUID,
             updatedAt : model.updatedAt,
             url       : model.url,
         };
@@ -49,8 +49,8 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         createModelInformation : CreateShortURLEquivalence
     ) {
         return {
-            shortURL : createModelInformation.shortURL,
-            url      : createModelInformation.url,
+            shortUUID : createModelInformation.shortUUID,
+            url       : createModelInformation.url,
         };
       
     }
@@ -69,10 +69,10 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         return this.entityToModel(shortURLEquivalence);
     }
 
-    async findByShortURl(shortURL : string) : Promise<ShortURLEquivalence | undefined> {
+    async findByShortURl(shortUUID : string) : Promise<ShortURLEquivalence | undefined> {
         const shortURLEquivalence = await this.internalPrismaRepository.findFirst({
             where: {
-                shortURL,
+                shortUUID,
             },
         });
 

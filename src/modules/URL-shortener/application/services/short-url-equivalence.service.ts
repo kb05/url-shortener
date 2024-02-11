@@ -29,10 +29,10 @@ export class ShortUrlEquivalenceService extends generateCrudService({
     
         const {
             urlEquivalenceWithTheSameURL,
-            urlEquivalenceWithTheSameShortURL,
+            urlEquivalenceWithTheSameShortUUID,
         } = await promiseAllProperties({
-            urlEquivalenceWithTheSameURL      : this.shortURLEquivalenceRepository.findByURL(model.url),
-            urlEquivalenceWithTheSameShortURL : this.shortURLEquivalenceRepository.findByShortURl(model.shortURL),
+            urlEquivalenceWithTheSameURL       : this.shortURLEquivalenceRepository.findByURL(model.url),
+            urlEquivalenceWithTheSameShortUUID : this.shortURLEquivalenceRepository.findByShortURl(model.shortUUID),
         });
 
         if (urlEquivalenceWithTheSameURL && get(model, "id") !== urlEquivalenceWithTheSameURL.id) {
@@ -41,9 +41,9 @@ export class ShortUrlEquivalenceService extends generateCrudService({
             });
         }
 
-        if (urlEquivalenceWithTheSameShortURL && get(model, "id") !== urlEquivalenceWithTheSameShortURL.id) {
+        if (urlEquivalenceWithTheSameShortUUID && get(model, "id") !== urlEquivalenceWithTheSameShortUUID.id) {
             return transformAndValidate(DuplicatedShortURLError, {
-                shortURL: model.url,
+                shortUUID: model.url,
             });
         }
     }

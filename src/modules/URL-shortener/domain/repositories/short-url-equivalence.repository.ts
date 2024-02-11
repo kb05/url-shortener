@@ -9,6 +9,6 @@ export abstract class ShortURLEquivalenceRepository extends generateAbstractCRUD
  
     abstract findByURL(url : string) : Promise<ShortURLEquivalence | undefined>
     
-    abstract findByShortURl(shortURL : string) : Promise<ShortURLEquivalence | undefined>
+    abstract findByShortURl(shortUUID : string) : Promise<ShortURLEquivalence | undefined>
 
 }
