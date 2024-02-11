@@ -8,9 +8,7 @@ import {
 import {
     generateVirtualPrismaRepositoryReference,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/generate-virtual-prisma-repository-reference";
-
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
-
 import {
     CreateShortURLEquivalence,
 } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
@@ -69,7 +67,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         return this.entityToModel(shortURLEquivalence);
     }
 
-    async findByShortURl(shortUUID : string) : Promise<ShortURLEquivalence | undefined> {
+    async findByShortUUID(shortUUID : string) : Promise<ShortURLEquivalence | undefined> {
         const shortURLEquivalence = await this.internalPrismaRepository.findFirst({
             where: {
                 shortUUID,

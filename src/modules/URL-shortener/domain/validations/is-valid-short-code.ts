@@ -2,15 +2,14 @@ import { applyDecorators, } from "@nestjs/common";
 import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";
 import { AppStringSize, } from "@src/framework/validators/string-size-validator";
 import {
-    IsNumber,
     Matches,
-    Max,
+    MaxLength,
     ValidationOptions, 
 } from "class-validator";
 import { isString, } from "lodash";
 
 
-const ValidShortCodeREGEX = /^[a-zA-Z]+$/;
+const ValidShortCodeREGEX = /^[a-zA-Z0-9]+$/;
 /**
  * This function verifies if the provided code is a valid short code
  *
@@ -29,7 +28,7 @@ export function isValidShortedCode(code : unknown) : boolean {
 
 
 /**
- * A decorator that validates if the url if the shorted code complies the specified criterias
+ * A decorator that validates if the url if the shorted code complies the specified criteria
  *
  * @export
  * @param {ParamOptions} [options] The list of options.
@@ -38,10 +37,8 @@ export function isValidShortedCode(code : unknown) : boolean {
 export function IsValidShortedCode(validationOptions ?: ValidationOptions) {
     return applyDecorators(
         IsNotEmptyString(validationOptions),
-        Max(AppStringSize.SHORT, validationOptions),
-        IsNumber(),
+        MaxLength(AppStringSize.SHORT, validationOptions),
         Matches(ValidShortCodeREGEX, {
-            message: "The provided short code is not valid",
             ...validationOptions,
         })
     );

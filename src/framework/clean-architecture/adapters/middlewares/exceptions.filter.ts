@@ -1,5 +1,3 @@
-
-
 import {
     ExceptionFilter,
     Catch,
@@ -48,6 +46,7 @@ export class ExceptionsFilter implements ExceptionFilter {
         const log = this.applicationLogger.error({
             context : "ExceptionsFilter",
             message : exception,
+            trace   : get(exception, "stack"),
         });        
         
         httpAdapter.reply(ctx.getResponse(), {

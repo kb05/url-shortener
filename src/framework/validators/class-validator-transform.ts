@@ -14,8 +14,10 @@ import { isArray, } from "lodash";
 export class AppValidationError extends Error {
     constructor(public readonly validationErrors : ValidationError[]) {
         super();
-
-        this.message = inspect(validationErrors, {
+        
+        this.message = inspect({
+            validationErrors,
+        }, {
             showHidden : false,
             depth      : null,
         });
