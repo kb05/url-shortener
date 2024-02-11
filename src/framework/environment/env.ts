@@ -13,3 +13,6 @@ if (process.env.NODE_ENV === "test") {
 }
 
 export const env = transformUnknownAndValidateSync(Environment, envContent);
+
+// this is an exception because the prisma schema  requires the variable in the environment
+process.env["PRISMA_DATABASE_URL"] = env.databaseConnection.getDatabaseUrl();

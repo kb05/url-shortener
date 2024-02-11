@@ -117,7 +117,7 @@
   },
   "include": [
     "src/**/*",
-    "prisma/prisma-environment",
+    "prisma/prisma-environment", "tests",
   ],
   "exclude": [
     "dist",

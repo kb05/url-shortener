@@ -22,7 +22,7 @@ services:
     networks:
       - url-shortener-network
     ports:
-      - ${DATABASE_PORT_TEST:-5433}:5433
+      - ${DATABASE_PORT_TEST:-5433}:5432
     environment:
       - POSTGRES_USER=${DB_USER_TEST:-url-shortener-db-user-test}
       - POSTGRES_PASSWORD=${DB_PASSWORD_TEST:-url-shortener-db-password-test}

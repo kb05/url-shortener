@@ -1,0 +1,11 @@
+{
+    "port": 4000,
+    "applicationDomain": "http://test:4000",
+    "databaseConnection": {
+        "host": "url-shortener-postgre-test",
+        "user": "url-shortener-db-user-test",
+        "password": "url-shortener-db-password-test",
+        "database": "url-shortener-test",
+        "port": 5432
+    }
+}
