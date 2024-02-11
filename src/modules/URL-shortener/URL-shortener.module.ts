@@ -1,4 +1,5 @@
 import { Module, } from "@nestjs/common";
+import { CacheModule, } from "@src/framework/modules/cache/cache.module";
 import { PrismaModule, } from "@src/framework/modules/prisma/prisma.module";
 import { UUIDModule, } from "@src/framework/modules/uuid/app-resources.module";
 import { ShortURLController, } from "@src/modules/URL-shortener/adapters/controllers/short-url.controller";
@@ -16,6 +17,7 @@ import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastr
     imports: [
         PrismaModule,
         UUIDModule,
+        CacheModule,
     ],
     controllers : [ShortURLController,],
     providers   : [

@@ -1,10 +1,10 @@
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 import { Documentation, } from "@src/framework/documentation/documentation";
+import { AppDate, } from "@src/framework/validators/app-date.decorator";
 import {
     EntityIdExample, IsEntityId, 
 } from "@src/framework/validators/is-entity-id";
 
-import { IsDate, } from "class-validator";
 
 export class EntityModel extends Model{
 
@@ -19,14 +19,14 @@ export class EntityModel extends Model{
         description : "The creation date",
         example     : new Date(),
     })
-    @IsDate()
+    @AppDate()
     public createdAt ! : Date;
     
     @Documentation({
         description : "The date when the object was updated by the last time",
         example     : new Date(),
     })
-    @IsDate()
+    @AppDate()
     public updatedAt ! : Date;
     
 }

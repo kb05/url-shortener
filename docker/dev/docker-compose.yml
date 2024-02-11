@@ -27,6 +27,17 @@ services:
       - POSTGRES_USER=${DB_USER_TEST:-url-shortener-db-user-test}
       - POSTGRES_PASSWORD=${DB_PASSWORD_TEST:-url-shortener-db-password-test}
       - POSTGRES_DB=${DB_DATABASE_TEST:-url-shortener-test}
+  
+  url-shortener-redis:
+    image: redis:latest
+    command: ["redis-server", "--appendonly", "no", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
+    restart: "no"
+    networks:
+      - url-shortener-network
+    ports:
+      - ${REDIS_PORT:-6379}:6379
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-url-shortener-redis-password}
     
   url-shortener-server:
       build:
@@ -43,6 +54,7 @@ services:
       - ./images/server/entrypoint.sh:/entrypoint.sh
       depends_on:
       - url-shortener-postgre
+  
 networks:
   url-shortener-network:
     external: false

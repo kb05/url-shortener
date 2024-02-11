@@ -8,7 +8,9 @@
         "CREATEDAT",
         "datasource",
         "JSONAPI",
-        "typeorm"
+        "typeorm",
+        "unserialize",
+        "unserialized"
     ],
     "material-icon-theme.folders.associations": {
         "domain":  "Custom",

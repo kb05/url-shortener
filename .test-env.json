@@ -7,5 +7,10 @@
         "password": "url-shortener-db-password-test",
         "database": "url-shortener-test",
         "port": 5432
+    },
+    "redisConnection": {
+        "user": "default",
+        "host": "url-shortener-redis",
+        "password": "url-shortener-redis-password"
     }
 }

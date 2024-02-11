@@ -2,6 +2,7 @@ import path from "path";
 import { Documentation, } from "@src/framework/documentation/documentation";
 import { DatabaseConnection, } from "@src/framework/environment/database-connection.class";
 
+import { RedisConnection, } from "@src/framework/environment/redis-connection.class";
 import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";
 import { ValidInstanceOf, } from "@src/framework/validators/valid-instance-of.validator";
 import {
@@ -34,6 +35,13 @@ export class Environment {
     })
     @ValidInstanceOf(DatabaseConnection)
     readonly databaseConnection ! : DatabaseConnection;
+    
+    @Documentation({
+        description: "The information required to connect to the redis server",
+    })
+    @ValidInstanceOf(RedisConnection)
+    readonly redisConnection ! : RedisConnection;
+    
     
     getProjectPath(subPathValue ?: string) : string { 
         

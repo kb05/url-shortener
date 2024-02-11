@@ -3,9 +3,11 @@ import {
     Controller,    Post, 
 } from "@nestjs/common";
 import { APIController, } from "@src/framework/clean-architecture/adapters/controllers/API-controller.class";
-import { domainErrorToDto, } from "@src/framework/clean-architecture/adapters/controllers/domain-error-to-dto";
+
 import { DocumentAPIResponse, } from "@src/framework/documentation/document-api-response";
-import { isInstanceOf, } from "@src/framework/types/type-utils";
+import { CacheService, } from "@src/framework/modules/cache/cache.service";
+
+import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import {
     CreateShortURLEquivalenceAsUserUseCase,
 } from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
@@ -22,6 +24,7 @@ import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/s
 export class ShortURLController implements APIController<ShortURLController> {
     constructor(
         private readonly createShortURLEquivalenceAsUserUseCase : CreateShortURLEquivalenceAsUserUseCase,
+        private readonly cacheService : CacheService,
     ) { }
 
 
@@ -35,15 +38,29 @@ export class ShortURLController implements APIController<ShortURLController> {
     async createUrlEquivalenceAsUser(
     @Body() createShortURLEquivalenceAsUser : CreateShortURLEquivalenceAsUser
     ) {
+
+
+        return await this.cacheService.getOrSet({
+            setCallback: () => transformAndValidate(ShortURLEquivalence, {
+                id        : 1,
+                createdAt : new Date,
+                updatedAt : new Date,
+                shortUUID : "te2sf",
+                url       : "www.google.es",
+            }),
+            modelType : ShortURLEquivalence,
+            cacheKey  : "tddfesf",
+        }) as any;
         
-        const shortURLEquivalence = await this.createShortURLEquivalenceAsUserUseCase.perform({
-            createShortURLEquivalenceAsUser,
-        });
 
-        if (isInstanceOf(shortURLEquivalence, ShortURLController.createShortUrlEquivalenceAsUserErrors)) {
-            return domainErrorToDto(shortURLEquivalence);
-        }
+        // const shortURLEquivalence = await this.createShortURLEquivalenceAsUserUseCase.perform({
+        //     createShortURLEquivalenceAsUser,
+        // });
 
-        return shortURLEquivalence;
+        // if (isInstanceOf(shortURLEquivalence, ShortURLController.createShortUrlEquivalenceAsUserErrors)) {
+        //     return domainErrorToDto(shortURLEquivalence);
+        // }
+
+        // return shortURLEquivalence;
     }
 }
