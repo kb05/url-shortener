@@ -3,7 +3,7 @@ import { Dictionary, } from "lodash";
 export type LogInformation = string | Dictionary<unknown>
 
 export type Log = {
-    uuid : string,
+    UUID : string,
     message : LogInformation,
     createdAt : Date,
 }

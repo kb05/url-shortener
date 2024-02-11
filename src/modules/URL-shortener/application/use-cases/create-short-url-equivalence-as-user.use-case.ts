@@ -2,7 +2,7 @@ import { Injectable, } from "@nestjs/common";
 import { UseCase, } from "@src/framework/clean-architecture/application/use-case";
 import { isDomainError, } from "@src/framework/clean-architecture/domain/errors/is-domain-error";
 import { env, } from "@src/framework/environment/env";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger.class";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
 import { UUIDService, } from "@src/framework/modules/uuid/uuid.service";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { ShortUrlEquivalenceService, } from "@src/modules/URL-shortener/application/services/short-url-equivalence.service";

@@ -1,14 +1,16 @@
 import {
-    ConsoleLogger, Global, Module, 
+    Global,
+    Module, 
 } from "@nestjs/common";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger.class";
+import { ApplicationConsoleLogger, } from "@src/framework/modules/global-resources/console-logger.class";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
 
 
 @Global()
 @Module({
     providers: [{
         provide  : ApplicationLogger,
-        useClass : ConsoleLogger,
+        useClass : ApplicationConsoleLogger,
     },],
     exports: [ApplicationLogger,],
 })

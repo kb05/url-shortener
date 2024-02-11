@@ -6,6 +6,5 @@ import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/s
 
 export class CreateShortURLEquivalence extends CreationModel(ShortURLEquivalence) {
     private __nominal! : void;
-
     
 }

@@ -1,7 +1,7 @@
 import { Injectable, } from "@nestjs/common";
 import {
     ApplicationLogger, Log, LogInformation, 
-} from "@src/framework/modules/global-resources/logger.class";
+} from "@src/framework/modules/global-resources/logger";
 import { v4 as uuidv4, } from "uuid";
 
 
@@ -10,7 +10,7 @@ export class ApplicationConsoleLogger extends ApplicationLogger {
 
     private generateLog(message : LogInformation) : Log { 
         return {
-            uuid      : uuidv4(),
+            UUID      : uuidv4(),
             message,
             createdAt : new Date(),
         };
@@ -21,7 +21,7 @@ export class ApplicationConsoleLogger extends ApplicationLogger {
         const log = this.generateLog(message);
 
         console.log(`\n error: ${JSON.stringify(log, null, 2)} \n`);
-
+        
         return log;
     }
 
