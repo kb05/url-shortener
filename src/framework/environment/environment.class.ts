@@ -2,6 +2,7 @@ import path from "path";
 import { Documentation, } from "@src/framework/documentation/documentation";
 import { DatabaseConnection, } from "@src/framework/environment/database-connection.class";
 
+import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";
 import { ValidInstanceOf, } from "@src/framework/validators/valid-instance-of.validator";
 import {
     IsNumber, Max, Min, 
@@ -18,7 +19,15 @@ export class Environment {
     @IsNumber()
     @Min(0)
     @Max(MAX_PORT_NUMBER)
-    readonly port! : string;
+    readonly port! : number;
+    
+    @Documentation({
+        description : "The domain in which will be served the application",
+        example     : "http://localhost:3000",
+    })
+    @IsNotEmptyString()
+    readonly applicationDomain ! : string;
+    
 
     @Documentation({
         description: "The information required to connect to the database",

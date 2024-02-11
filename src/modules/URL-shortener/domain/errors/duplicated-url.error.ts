@@ -9,7 +9,7 @@ export class DuplicatedURLError extends ConflictDomainError {
 
     @Documentation({
         description : "The url of the duplicated url equivalence",
-        example     : "rick-sanchez@talent-match.com",
+        example     : "https://localhost:3000/",
     })
     @IsString()
     public url ! : ShortURLEquivalence["url"];

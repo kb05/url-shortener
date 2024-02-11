@@ -6671,6 +6671,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"promise-all-properties@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "promise-all-properties@npm:3.1.1"
+  checksum: 10c0/a459110582efac975fd8b07b80e57f4731f4aaac16f1d5882523ffaeb051fc637279a7a69c4f0564da3acf50eca051dfbad0cc4790ca688f44173fd4905cbf7e
+  languageName: node
+  linkType: hard
+
 "promise-retry@npm:^2.0.1":
   version: 2.0.1
   resolution: "promise-retry@npm:2.0.1"
@@ -6821,6 +6828,7 @@ __metadata:
     prettier: "npm:^3.0.0"
     prisma: "npm:^5.9.1"
     prisma-pagination: "npm:^0.2.3"
+    promise-all-properties: "npm:^3.1.1"
     reflect-metadata: "npm:^0.2.0"
     rxjs: "npm:^7.8.1"
     short-unique-id: "npm:^5.0.3"

@@ -5,7 +5,7 @@ import { IsValidUrl, } from "@src/framework/validators/is-valid-url.validator";
 import { AppStringSize, } from "@src/framework/validators/string-size-validator";
 
 
-export class CreateShortURLEquivalenceAsUser extends Model {
+export class CreateShortURLEquivalenceResponse extends Model {
     private __nominal! : void;
 
 
@@ -15,15 +15,7 @@ export class CreateShortURLEquivalenceAsUser extends Model {
     })
     @IsNotEmptyString(AppStringSize.MEDIUM)
     @IsValidUrl()
-    public full ! : string;
-    
-    @Documentation({
-        description : "The shortened url",
-        example     : "https://www.reactable.ai/",
-    })
-    @IsValidUrl()
-    @IsNotEmptyString(AppStringSize.SHORT)
-    public short ! : string;
-    
+    public url ! : string;
+
     
 }

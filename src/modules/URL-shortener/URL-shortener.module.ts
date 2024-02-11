@@ -2,8 +2,10 @@ import { Module, } from "@nestjs/common";
 import { PrismaModule, } from "@src/framework/modules/prisma/prisma.module";
 import { ShortURLController, } from "@src/modules/URL-shortener/adapters/controllers/app.controller";
 import { ShortUrlEquivalenceService, } from "@src/modules/URL-shortener/application/services/short-url-equivalence.service";
-
-import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/admin.repository";
+import {
+    CreateShortURLEquivalenceAsUserUseCase,
+} from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
+import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/short-url-equivalence.repository";
 import {
     ShortURLEquivalencePrismaRepository,
 } from "@src/modules/URL-shortener/infrastructure/repositories/short-url-equivalence.repository";
@@ -15,6 +17,7 @@ import {
     controllers : [ShortURLController,],
     providers   : [
         ShortUrlEquivalenceService,
+        CreateShortURLEquivalenceAsUserUseCase,
         {
             provide  : ShortURLEquivalenceRepository,
             useClass : ShortURLEquivalencePrismaRepository,

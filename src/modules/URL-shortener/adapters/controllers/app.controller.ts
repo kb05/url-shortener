@@ -1,40 +1,50 @@
 import {
     Body,
-    Controller,  Post, 
+    Controller,    Post, 
 } from "@nestjs/common";
-import { ApiResponse, } from "@nestjs/swagger";
+import { APIController, } from "@src/framework/clean-architecture/adapters/controllers/API-controller.class";
+import { domainErrorToDto, } from "@src/framework/clean-architecture/adapters/controllers/domain-error-to-dto";
+import { DocumentAPIResponse, } from "@src/framework/documentation/document-api-response";
+import { isInstanceOf, } from "@src/framework/types/type-utils";
+import { CreateShortURLEquivalenceAsUserUseCase, } from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
 
 
-import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
-import { ShortUrlEquivalenceService, } from "@src/modules/URL-shortener/application/services/short-url-equivalence.service";
+import { DuplicatedShortURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-url.error";
+import { DuplicatedURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-url.error";
 import {
     CreateShortURLEquivalenceAsUser,
 } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence-as-user.model";
 
-import { CreateShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
+
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 
 
 @Controller("short-url")
-export class ShortURLController {
+export class ShortURLController implements APIController<ShortURLController> {
     constructor(
-        private readonly shortUrlEquivalenceService : ShortUrlEquivalenceService,
+        private readonly createShortURLEquivalenceAsUserUseCase : CreateShortURLEquivalenceAsUserUseCase,
     ) { }
 
-    @Post()
-    @ApiResponse({
-        type: ShortURLEquivalence,
+
+    static createShortUrlEquivalenceAsUserErrors = [DuplicatedShortURLError, DuplicatedURLError,];
+
+    @DocumentAPIResponse({
+        response : [ShortURLEquivalence,],
+        errors   : ShortURLController.createShortUrlEquivalenceAsUserErrors,
     })
-    async getHello(
-    @Body() params : CreateShortURLEquivalenceAsUser
+    @Post()
+    async createUrlEquivalenceAsUser(
+    @Body() createShortURLEquivalenceAsUser : CreateShortURLEquivalenceAsUser
     ) {
-                
-        return this.shortUrlEquivalenceService.create(
-            await transformAndValidate(CreateShortURLEquivalence, {
-                url      : "https://test.com",
-                shortURL : "https://test.com",
-            })
-        );
-       
+        
+        const shortURLEquivalence = await this.createShortURLEquivalenceAsUserUseCase.perform({
+            createShortURLEquivalenceAsUser,
+        });
+
+        if (isInstanceOf(shortURLEquivalence, ShortURLController.createShortUrlEquivalenceAsUserErrors)) {
+            return domainErrorToDto(shortURLEquivalence);
+        }
+
+        return shortURLEquivalence;
     }
 }

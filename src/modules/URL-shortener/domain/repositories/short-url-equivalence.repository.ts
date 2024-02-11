@@ -7,4 +7,8 @@ import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/s
 
 export abstract class ShortURLEquivalenceRepository extends generateAbstractCRUDRepository(ShortURLEquivalence, CreateShortURLEquivalence) {
  
+    abstract findByURL(url : string) : Promise<ShortURLEquivalence | undefined>
+    
+    abstract findByShortURl(shortURL : string) : Promise<ShortURLEquivalence | undefined>
+
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /**
  * This type generate a type that is a constructor of the provided class.
  *
@@ -55,4 +56,17 @@ export function isEnumValue<T extends { [k : string] : unknown }>(
     something : unknown, enumObject : T
 ) : something is T[keyof T] {
     return Object.values(enumObject).includes(something);
+}
+
+
+/**
+ * This function is a type guard that checks if the value is an instance of any of the classes
+ *
+ * @template T
+ * @param {unknown} value
+ * @param {T} classes
+ * @return {*}  {value is InstanceType<T[number]>}
+ */
+export function isInstanceOf<T extends (ClassType<Object>[])>(value : unknown, classes : T) : value is InstanceType<T[number]> {
+    return classes.some(c => value instanceof c);
 }

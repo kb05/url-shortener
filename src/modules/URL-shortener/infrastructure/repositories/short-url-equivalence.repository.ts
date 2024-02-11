@@ -15,6 +15,7 @@ import {
     CreateShortURLEquivalence,
 } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
+import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/short-url-equivalence.repository";
 
 
 @Injectable()
@@ -22,8 +23,9 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
     CreateModelInformationClass   : CreateShortURLEquivalence,
     ModelClass                    : ShortURLEquivalence,
     entityVirtualPrismaRepository : generateVirtualPrismaRepositoryReference<PrismaShortURLEquivalence>("prismaShortURLEquivalence"),
-}) {
-       
+}) implements ShortURLEquivalenceRepository {
+   
+    
     async entityToModel
     (
         entity : PrismaShortURLEquivalence
@@ -32,7 +34,6 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
             ...entity, 
         });
     }
-  
     
     modelToEntity(model : ShortURLEquivalence){
         return {
@@ -52,6 +53,34 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
             url      : createModelInformation.url,
         };
       
+    }
+
+    async findByURL(url : string) : Promise<ShortURLEquivalence | undefined> {
+        const shortURLEquivalence = await this.internalPrismaRepository.findFirst({
+            where: {
+                url,
+            },
+        });
+
+        if (!shortURLEquivalence) {
+            return undefined;
+        }
+
+        return this.entityToModel(shortURLEquivalence);
+    }
+
+    async findByShortURl(shortURL : string) : Promise<ShortURLEquivalence | undefined> {
+        const shortURLEquivalence = await this.internalPrismaRepository.findFirst({
+            where: {
+                shortURL,
+            },
+        });
+
+        if (!shortURLEquivalence) {
+            return undefined;
+        }
+
+        return this.entityToModel(shortURLEquivalence);
     }
 
 }
