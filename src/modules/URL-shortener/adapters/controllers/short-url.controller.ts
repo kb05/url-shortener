@@ -6,9 +6,9 @@ import { APIController, } from "@src/framework/clean-architecture/adapters/contr
 import { domainErrorToDto, } from "@src/framework/clean-architecture/adapters/controllers/domain-error-to-dto";
 import { DocumentAPIResponse, } from "@src/framework/documentation/document-api-response";
 import { isInstanceOf, } from "@src/framework/types/type-utils";
-import { CreateShortURLEquivalenceAsUserUseCase, } from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
-
-
+import {
+    CreateShortURLEquivalenceAsUserUseCase,
+} from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
 import { DuplicatedShortURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-url.error";
 import { DuplicatedURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-url.error";
 import {
@@ -17,7 +17,6 @@ import {
 
 
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
-
 
 @Controller("short-url")
 export class ShortURLController implements APIController<ShortURLController> {

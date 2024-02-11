@@ -63,14 +63,14 @@ export class ShortUrlEquivalenceService extends generateCrudService({
     }
 
 
-    public async generateNewShortedUUID() : Promise<string>{
+    public async generateNewShortUUID() : Promise<string>{
 
 
         const generatedUUIDs : string[] = [];
         
         // All the algorithms are pseudorandom, also the string space is lower than the url space so we could have
         // repeated codes, the possibility is so reduced but we need to be prepared for that
-        const shortedURL = await retryAsPromised(async () => {
+        const shortURL = await retryAsPromised(async () => {
 
             const uuid = await this.uuidService.getShortUUID(SHORT_UUID_LENGTH);
 
@@ -88,18 +88,18 @@ export class ShortUrlEquivalenceService extends generateCrudService({
             match : (value : unknown) => !!value,
         });
 
-        if (!shortedURL) {
+        if (!shortURL) {
             
             this.applicationLogger.error({
-                message: "It was not possible generated the shorted url",
+                message: "It was not possible generated the short url",
                 generatedUUIDs,
             });
 
     
-            throw new Error("Could not generate shorted URL");
+            throw new Error("Could not generate short URL");
         }
 
-        return shortedURL;
+        return shortURL;
     }
 
   

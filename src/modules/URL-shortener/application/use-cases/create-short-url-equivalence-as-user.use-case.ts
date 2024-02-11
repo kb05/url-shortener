@@ -2,8 +2,6 @@ import { Injectable, } from "@nestjs/common";
 import { UseCase, } from "@src/framework/clean-architecture/application/use-case";
 import { isDomainError, } from "@src/framework/clean-architecture/domain/errors/is-domain-error";
 import { env, } from "@src/framework/environment/env";
-
-
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { ShortUrlEquivalenceService, } from "@src/modules/URL-shortener/application/services/short-url-equivalence.service";
 import { CreateShortURLEquivalenceAsUser, } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence-as-user.model";
@@ -27,7 +25,7 @@ export class CreateShortURLEquivalenceAsUserUseCase extends UseCase {
         
         const shortUUID = createShortURLEquivalenceAsUser.short
             ? createShortURLEquivalenceAsUser.short
-            : await this.shortURLEquivalenceService.generateNewShortedUUID();
+            : await this.shortURLEquivalenceService.generateNewShortUUID();
 
         
         const shortURLEquivalence = await this.shortURLEquivalenceService.create(

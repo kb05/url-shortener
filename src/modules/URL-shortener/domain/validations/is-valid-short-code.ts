@@ -17,7 +17,7 @@ const ValidShortCodeREGEX = /^[a-zA-Z0-9]+$/;
  * @param {string} code
  * @return {*}  {boolean}
  */
-export function isValidShortedCode(code : unknown) : boolean {
+export function isValidShortCode(code : unknown) : boolean {
     
     if (!isString(code)) {
         return false;
@@ -28,13 +28,13 @@ export function isValidShortedCode(code : unknown) : boolean {
 
 
 /**
- * A decorator that validates if the url if the shorted code complies the specified criteria
+ * A decorator that validates if the url if the short code complies the specified criteria
  *
  * @export
  * @param {ParamOptions} [options] The list of options.
  * @return {*}
  */
-export function IsValidShortedCode(validationOptions ?: ValidationOptions) {
+export function IsValidShortCode(validationOptions ?: ValidationOptions) {
     return applyDecorators(
         IsNotEmptyString(validationOptions),
         MaxLength(AppStringSize.SHORT, validationOptions),
