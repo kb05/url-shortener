@@ -10,6 +10,7 @@ import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domai
 import {
     ShortURLEquivalencePrismaRepository,
 } from "@src/modules/URL-shortener/infrastructure/repositories/short-url-equivalence.prisma-repository";
+import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastructure/tests/short-url-equivalence.builder";
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import {
     controllers : [ShortURLController,],
     providers   : [
         ShortUrlEquivalenceService,
+        ShortURLEquivalenceBuilder,
         CreateShortURLEquivalenceAsUserUseCase,
         {
             provide  : ShortURLEquivalenceRepository,

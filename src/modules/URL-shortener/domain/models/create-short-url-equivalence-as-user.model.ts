@@ -21,7 +21,7 @@ export class CreateShortURLEquivalenceAsUser extends Model {
     
     @Documentation({
         description : "The shortened url",
-        example     : "https://www.reactable.ai/",
+        example     : "o4X1aXzRDy",
     })
     @IsValidShortCode()
     @IsOptional()

@@ -1079,6 +1079,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ngneat/falso@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "@ngneat/falso@npm:7.1.1"
+  dependencies:
+    seedrandom: "npm:3.0.5"
+    uuid: "npm:8.3.2"
+  checksum: 10c0/4fbb980c720fdc383e7a9b89bc59192be6fabd35fc83fd506bc85e0e426715f622f1a07d1bc2ff2462a57ea045141e4766abd59e2b06fc807ddbd4637895fa6a
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -6824,6 +6834,7 @@ __metadata:
     "@nestjs/schematics": "npm:^10.0.0"
     "@nestjs/swagger": "npm:^7.3.0"
     "@nestjs/testing": "npm:^10.0.0"
+    "@ngneat/falso": "npm:^7.1.1"
     "@prisma/client": "npm:5.9.1"
     "@types/express": "npm:^4.17.17"
     "@types/jest": "npm:^29.5.2"
@@ -7182,6 +7193,13 @@ __metadata:
     ajv: "npm:^6.12.5"
     ajv-keywords: "npm:^3.5.2"
   checksum: 10c0/fafdbde91ad8aa1316bc543d4b61e65ea86970aebbfb750bfb6d8a6c287a23e415e0e926c2498696b242f63af1aab8e585252637fabe811fd37b604351da6500
+  languageName: node
+  linkType: hard
+
+"seedrandom@npm:3.0.5":
+  version: 3.0.5
+  resolution: "seedrandom@npm:3.0.5"
+  checksum: 10c0/929752ac098ff4990b3f8e0ac39136534916e72879d6eb625230141d20db26e2f44c4d03d153d457682e8cbaab0fb7d58a1e7267a157cf23fd8cf34e25044e88
   languageName: node
   linkType: hard
 
@@ -8268,6 +8286,15 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: 10c0/02ba649de1b7ca8854bfe20a82f1dfbdda3fb57a22ab4a8972a63a34553cf7aa51bc9081cf7e001b035b88186d23689d69e71b510e610a09a4c66f68aa95b672
+  languageName: node
+  linkType: hard
+
+"uuid@npm:8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 10c0/bcbb807a917d374a49f475fae2e87fdca7da5e5530820ef53f65ba1d12131bd81a92ecf259cc7ce317cbe0f289e7d79fdfebcef9bfa3087c8c8a2fa304c9be54
   languageName: node
   linkType: hard
 

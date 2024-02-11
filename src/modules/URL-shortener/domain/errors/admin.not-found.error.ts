@@ -18,7 +18,7 @@ export class ShortUrlEquivalenceNotFoundError extends EntityIdNotFoundError {
     
     
     public describe() : string {
-        return `The short url equivalence with the id ${this.id} was not found`;
+        return `The short url equivalence with the id ${this.id} was not found.`;
     }
     
 }

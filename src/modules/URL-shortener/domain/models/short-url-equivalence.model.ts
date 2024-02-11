@@ -21,7 +21,7 @@ export class ShortURLEquivalence extends EntityModel {
     
     @Documentation({
         description : "The shortened url",
-        example     : "https://www.reactable.ai/",
+        example     : "o4X1aXzRDy",
     })
     @IsNotEmptyString(AppStringSize.SHORT)
     @IsValidShortCode()

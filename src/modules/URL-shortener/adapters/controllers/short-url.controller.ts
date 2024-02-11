@@ -9,7 +9,7 @@ import { isInstanceOf, } from "@src/framework/types/type-utils";
 import {
     CreateShortURLEquivalenceAsUserUseCase,
 } from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
-import { DuplicatedShortURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-url.error";
+import { DuplicatedShortUUIDError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-uuid.error";
 import { DuplicatedURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-url.error";
 import {
     CreateShortURLEquivalenceAsUser,
@@ -25,7 +25,7 @@ export class ShortURLController implements APIController<ShortURLController> {
     ) { }
 
 
-    static createShortUrlEquivalenceAsUserErrors = [DuplicatedShortURLError, DuplicatedURLError,];
+    static createShortUrlEquivalenceAsUserErrors = [DuplicatedShortUUIDError, DuplicatedURLError,];
 
     @DocumentAPIResponse({
         response : [ShortURLEquivalence,],

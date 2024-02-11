@@ -4,7 +4,7 @@ import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/s
 import { IsString, } from "class-validator";
 
 
-export class DuplicatedShortURLError extends ConflictDomainError {
+export class DuplicatedShortUUIDError extends ConflictDomainError {
     private __nominal! : void;
   
     @Documentation({

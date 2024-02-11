@@ -4,7 +4,7 @@ import { ApplicationLogger, } from "@src/framework/modules/global-resources/logg
 import { UUIDService, } from "@src/framework/modules/uuid/uuid.service";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { ShortUrlEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/admin.not-found.error";
-import { DuplicatedShortURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-url.error";
+import { DuplicatedShortUUIDError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-uuid.error";
 import { DuplicatedURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-url.error";
 import { CreateShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
@@ -20,7 +20,7 @@ export class ShortUrlEquivalenceService extends generateCrudService({
     modelClass                  : ShortURLEquivalence,
     createModelInformationClass : CreateShortURLEquivalence,
     notFoundError               : ShortUrlEquivalenceNotFoundError,
-    onSaveErrors                : [DuplicatedShortURLError, DuplicatedURLError,],
+    onSaveErrors                : [DuplicatedShortUUIDError, DuplicatedURLError,],
 }) { 
     
     constructor(
@@ -48,7 +48,7 @@ export class ShortUrlEquivalenceService extends generateCrudService({
         }
 
         if (urlEquivalenceWithTheSameShortUUID && get(model, "id") !== urlEquivalenceWithTheSameShortUUID.id) {
-            return transformAndValidate(DuplicatedShortURLError, {
+            return transformAndValidate(DuplicatedShortUUIDError, {
                 shortUUID: model.url,
             });
         }
