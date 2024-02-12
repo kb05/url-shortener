@@ -17,5 +17,7 @@ export abstract class CacheService {
             setCallback : () => Promise<T|undefined>;
         }
     ) : Promise<T | undefined> 
+    
+    abstract reset() : Promise<void>
 
 }

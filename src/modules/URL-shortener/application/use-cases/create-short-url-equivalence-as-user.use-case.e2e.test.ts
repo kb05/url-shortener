@@ -55,9 +55,7 @@ describe("CreateShortURLEquivalenceAsUserUseCase", () => {
             });
 
             expectInstanceOf(result, CreateShortURLEquivalenceResponse);
-            
-            console.log(result.url);
-            
+                        
             expect(isValidURL(result.url)).toBeTruthy();
 
         });

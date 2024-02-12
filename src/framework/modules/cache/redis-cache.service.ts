@@ -16,7 +16,6 @@ import {
 @Injectable()
 export class RedisCacheService extends CacheService implements OnModuleInit {
    
-
     private readonly redisClient : RedisClientType;
         
     constructor(
@@ -76,6 +75,10 @@ export class RedisCacheService extends CacheService implements OnModuleInit {
             this.getModelKey(modelType, cacheKey)
         );
 
+    }
+
+    async reset() : Promise<void> {
+        await this.redisClient.flushAll();
     }
 
     async getOrSet<T extends Model>(
