@@ -40,6 +40,7 @@ import { URLShortenerModule, } from "@src/modules/URL-shortener/URL-shortener.mo
     ],
     exports: [
         ShortURLRegistryService,
+        ShortURLRegistryBuilder,
     ],
 })
 export class StatsModule {}

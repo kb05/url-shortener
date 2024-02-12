@@ -7,6 +7,6 @@ yarn prisma generate
 
 yarn prisma migrate deploy
 
-# yarn seed
+yarn seed || true
 
 yarn start:debug

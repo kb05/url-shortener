@@ -38,6 +38,7 @@ import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastr
     ],
     exports: [
         ShortUrlEquivalenceService,
+        ShortURLEquivalenceBuilder,
     ],
 })
 export class URLShortenerModule {}
