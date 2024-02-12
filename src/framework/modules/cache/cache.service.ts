@@ -8,11 +8,13 @@ export abstract class CacheService {
 
     abstract saveModel<T extends Model>({ model, cacheKey, } : { model : T; cacheKey : string; }) : Promise<void>
 
+    abstract removeModel<T extends Model>(params : { modelType : ClassType<T>; cacheKey : string; }) : Promise<void> 
+
     abstract getOrSet<T extends Model>(
         params : {
             modelType : ClassType<T>;
             cacheKey : string;
-            setCallback : () => Promise<T>;
+            setCallback : () => Promise<T|undefined>;
         }
     ) : Promise<T | undefined> 
 

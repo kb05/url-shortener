@@ -15,6 +15,7 @@ import {
 
 @Injectable()
 export class RedisCacheService extends CacheService implements OnModuleInit {
+   
 
     private readonly redisClient : RedisClientType;
         
@@ -69,6 +70,14 @@ export class RedisCacheService extends CacheService implements OnModuleInit {
 
     }
 
+    async removeModel<T extends Model>({ modelType, cacheKey, } : { modelType : ClassType<T>; cacheKey : string; }) {
+        
+        await this.redisClient.del(
+            this.getModelKey(modelType, cacheKey)
+        );
+
+    }
+
     async getOrSet<T extends Model>(
         {
             modelType,
@@ -77,9 +86,9 @@ export class RedisCacheService extends CacheService implements OnModuleInit {
         } : {
             modelType : ClassType<T>;
             cacheKey : string;
-            setCallback : () => Promise<T>;
+            setCallback : () => Promise<T|undefined>;
         }
-    ) : Promise<T> {
+    ) : Promise<T|undefined> {
         
         const cachedModel = await this.getModel({
             modelType,
@@ -91,6 +100,10 @@ export class RedisCacheService extends CacheService implements OnModuleInit {
         }
 
         const newModel = await setCallback();
+
+        if (!newModel) {
+            return undefined;
+        }
 
         await this.saveModel({
             cacheKey,
