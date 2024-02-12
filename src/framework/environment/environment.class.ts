@@ -1,7 +1,6 @@
 import path from "path";
 import { Documentation, } from "@src/framework/documentation/documentation";
 import { DatabaseConnection, } from "@src/framework/environment/database-connection.class";
-
 import { RedisConnection, } from "@src/framework/environment/redis-connection.class";
 import { AppNumber, } from "@src/framework/validators/app-number.decorator";
 import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";

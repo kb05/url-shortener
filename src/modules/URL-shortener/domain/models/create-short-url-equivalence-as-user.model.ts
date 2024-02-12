@@ -27,5 +27,4 @@ export class CreateShortURLEquivalenceAsUser extends Model {
     @AppOptional()
     public short ?: string;
     
-    
 }

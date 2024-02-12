@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-
-
 import { Injectable, } from "@nestjs/common";
 import { EntityModel, } from "@src/framework/clean-architecture/domain/entity.model";
 import { PagePaginationOutput, } from "@src/framework/clean-architecture/domain/types/page-pagination-output.model";

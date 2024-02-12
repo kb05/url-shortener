@@ -9,7 +9,6 @@ import {
     ResolveShortURLEquivalenceAsUserUseCase,
 } from "@src/modules/URL-shortener/application/use-cases/resolve-short-url-equivalence-by-short-uuid-as-user.use-case";
 import { ShortUUIDURLEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/short-uuid-url-equivalence.not-found.error";
-
 import { ResolvedShortURLEquivalenceEvent, } from "@src/modules/URL-shortener/domain/events/resolved-short-URL-equivalence.event";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastructure/tests/short-url-equivalence.builder";

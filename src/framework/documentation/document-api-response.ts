@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
-
 import {
     ApiResponse, 
 } from "@nestjs/swagger";
 import { domainErrorConstructorToErrorCode, } from "@src/framework/clean-architecture/adapters/controllers/domain-error-to.error.code";
-
 import { ErrorDTO, } from "@src/framework/clean-architecture/adapters/controllers/error-dto";
 import { DomainError, } from "@src/framework/clean-architecture/domain/error";
 import { Model, } from "@src/framework/clean-architecture/domain/model";

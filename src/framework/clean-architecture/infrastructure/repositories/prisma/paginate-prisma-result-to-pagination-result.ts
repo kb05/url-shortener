@@ -3,6 +3,7 @@ import {
     PaginatedResult,
 } from "prisma-pagination";
 
+
 export function prismaPaginatedResultToPaginatePrisma<T>(paginatedResult : PaginatedResult<T>) : PagePaginationOutput<T> {
     return {
         total    : paginatedResult.meta.total,

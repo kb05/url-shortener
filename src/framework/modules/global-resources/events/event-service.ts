@@ -1,6 +1,7 @@
 import { DomainEvent, } from "@src/framework/clean-architecture/domain/domain-event";
 import { ClassType, } from "@src/framework/types/type-utils";
 
+
 export abstract class EventService
 {
 

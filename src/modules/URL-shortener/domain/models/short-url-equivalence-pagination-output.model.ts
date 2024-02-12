@@ -17,5 +17,4 @@ export class ShortURLEquivalencePaginationOutput extends generatePagePaginationO
     @ValidInstanceOf([ShortURLEquivalence,])
     public results ! : ShortURLEquivalence[];
     
-
 }

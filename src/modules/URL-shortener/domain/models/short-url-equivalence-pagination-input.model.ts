@@ -27,5 +27,4 @@ export class ShortURLEquivalencePaginationInput extends PagePaginationInput{
     @AppOptional()
     public shortUUID ?: string;
     
-
 }

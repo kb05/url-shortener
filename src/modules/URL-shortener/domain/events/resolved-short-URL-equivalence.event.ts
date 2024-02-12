@@ -3,6 +3,7 @@ import { Documentation, } from "@src/framework/documentation/documentation";
 import { EntityIdExample, } from "@src/framework/validators/is-entity-id";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 
+
 export class ResolvedShortURLEquivalenceEvent extends DomainEvent {
     private __nominal! : void;
     

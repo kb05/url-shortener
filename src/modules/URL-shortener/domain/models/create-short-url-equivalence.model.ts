@@ -1,6 +1,4 @@
-
 import { CreationModel, } from "@src/framework/types/mapped-types";
-
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 
 

@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+// The purpose of this file is use our .env.json file and integrates it with prisma environment
+
 const path = require("path")
 const { isString,isObject } = require('class-validator')
 

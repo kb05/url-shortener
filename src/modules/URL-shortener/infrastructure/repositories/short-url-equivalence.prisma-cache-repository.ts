@@ -33,6 +33,23 @@ export class ShortURLEquivalencePrismaCacheRepository extends ShortURLEquivalenc
 
         return storedModel;
     }
+    
+    public async deleteById(id : ShortURLEquivalence["id"]) : Promise<boolean> {
+        const storedModel = await super.findById(id);
+
+        if (!storedModel) {
+            return false;
+        }
+
+        const deleteResult = await super.deleteById(id);
+
+        await this.cacheService.removeModel({
+            cacheKey  : this.getShortUUIDKey(storedModel.shortUUID),
+            modelType : ShortURLEquivalence,
+        });
+
+        return deleteResult;
+    }
 
     async findByShortUUID(shortUUID : string) : Promise<ShortURLEquivalence | undefined> {
         return this.cacheService.getOrSet({

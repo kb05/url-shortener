@@ -3,6 +3,7 @@ import {
     retryAsync, 
 } from "ts-retry";
 
+
 /**
  * This function retries the callback until the provided function return a truthy value
  *

@@ -28,6 +28,7 @@ import {
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import { Response, } from "express";
 
+
 @Controller("short-url")
 export class ShortURLController implements APIController<ShortURLController> {
     constructor(

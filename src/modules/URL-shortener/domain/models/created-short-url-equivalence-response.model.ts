@@ -17,5 +17,4 @@ export class CreateShortURLEquivalenceResponse extends Model {
     @IsValidUrl()
     public url ! : string;
 
-    
 }

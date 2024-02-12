@@ -1,6 +1,7 @@
 import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
 import { EntityId, } from "@src/framework/validators/is-entity-id";
 
+
 export type GlobalPrismaRepositories = Omit<
 PrismaService,
 "$disconnect" | "$connect" | "$executeRaw" | "$queryRaw" | "$transaction" | "$on" |

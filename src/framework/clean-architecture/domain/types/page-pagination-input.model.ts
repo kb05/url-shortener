@@ -1,7 +1,6 @@
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 import { Documentation, } from "@src/framework/documentation/documentation";
 import { AppNumber, } from "@src/framework/validators/app-number.decorator";
-
 import { ValidateCallback, } from "class-validator-callback";
 
 

@@ -10,7 +10,6 @@ import { ShortURLStatsRepository, } from "@src/modules/stats/domain/repositories
 import { get, } from "lodash";
 import { createPaginator, } from "prisma-pagination";
 
-
 const paginate = createPaginator({});
 
 @Injectable()
@@ -22,27 +21,6 @@ export class ShortURLStatsPrismaRepository implements ShortURLStatsRepository {
 
 
     async findByPaginated(shortURLStatsPaginationInput : ShortURLStatsPaginationInput) : Promise<ShortURLStatsPaginationOutput> {
-       
-
-        // const rawResults = await this.prismaService.prismaShortURLRegistry.findMany({
-        //     select: {
-        //         numberOfRequests    : true,
-        //         shortURLEquivalence : true,
-        //     },
-        //     where: {
-        //         shortURLEquivalence: {
-        //             url: shortURLStatsPaginationInput.url && {
-        //                 contains: shortURLStatsPaginationInput.url,
-        //             },
-        //             shortUUID: shortURLStatsPaginationInput.shortUUID && {
-        //                 contains: shortURLStatsPaginationInput.shortUUID,
-        //             },
-        //         },
-        //     },
-        //     orderBy: {
-        //         createdAt: "desc",
-        //     },
-        // });
 
         const paginatedResult = prismaPaginatedResultToPaginatePrisma(
             await paginate(

@@ -1,5 +1,4 @@
 import "jest-extended";
-
 import { ApplicationTestingModule, } from "@src/framework/tests/application-testing-module";
 import { expectInstanceOf, } from "@src/framework/tests/expect-instance-of";
 import { generateTestingModule, } from "@src/framework/tests/generate-testing-module";

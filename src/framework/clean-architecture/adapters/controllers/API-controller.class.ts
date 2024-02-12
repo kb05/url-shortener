@@ -1,5 +1,6 @@
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 
+
 /**
  * This interface force that all the controller methods are functions that return a valid dto.
  */

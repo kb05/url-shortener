@@ -15,6 +15,5 @@ export class ShortURLRegistryPaginationOutput extends generatePagePaginationOutp
     })
     @ValidInstanceOf([ShortURLRegistry,])
     public results ! : ShortURLRegistry[];
-    
 
 }
