@@ -1,8 +1,7 @@
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 import { Documentation, } from "@src/framework/documentation/documentation";
-import {
-    Min, IsInt, 
-} from "class-validator";
+import { AppNumber, } from "@src/framework/validators/app-number.decorator";
+
 import { ValidateCallback, } from "class-validator-callback";
 
 
@@ -19,8 +18,9 @@ export class PagePaginationInput extends Model {
         description : "The page number",
         example     : DEFAULT_PAGE,
     })
-    @IsInt()
-    @Min(1)
+    @AppNumber({
+        min: 1, 
+    })
     @ValidateCallback(
         (paginationInput) => {
             if (paginationInput.limit === LIMITLESS_PAGINATION && paginationInput.page !== 1) {
@@ -39,8 +39,9 @@ export class PagePaginationInput extends Model {
         description : "The number of items per page",
         example     : DEFAULT_LIMIT,
     })
-    @IsInt()
-    @Min(0)
+    @AppNumber({
+        min: 0, 
+    })
     public limit : number = DEFAULT_LIMIT;
     
 }

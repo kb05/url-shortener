@@ -16,8 +16,10 @@ import { URLShortenerModule, } from "@src/modules/URL-shortener/URL-shortener.mo
         PrismaModule,
         URLShortenerModule,
     ],
-    controllers : [ShortURLStatsController,],
-    providers   : [
+    controllers: [
+        ShortURLStatsController,
+    ],
+    providers: [
         ShortURLStatsEventSubscriber,
         ShortURLStatsService,
         CreateShortURLStatsUseCase,

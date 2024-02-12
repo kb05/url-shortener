@@ -23,8 +23,10 @@ import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastr
         UUIDModule,
         CacheModule,
     ],
-    controllers : [ShortURLController,],
-    providers   : [
+    controllers: [
+        ShortURLController,
+    ],
+    providers: [
         ShortUrlEquivalenceService,
         ShortURLEquivalenceBuilder,
         {

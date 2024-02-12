@@ -3,11 +3,10 @@ import { Documentation, } from "@src/framework/documentation/documentation";
 import { DatabaseConnection, } from "@src/framework/environment/database-connection.class";
 
 import { RedisConnection, } from "@src/framework/environment/redis-connection.class";
+import { AppNumber, } from "@src/framework/validators/app-number.decorator";
 import { IsNotEmptyString, } from "@src/framework/validators/is-not-empty-string-validator";
 import { ValidInstanceOf, } from "@src/framework/validators/valid-instance-of.validator";
-import {
-    IsNumber, Max, Min, 
-} from "class-validator";
+
 
 const MAX_PORT_NUMBER = 65535;
 
@@ -17,9 +16,10 @@ export class Environment {
         description : "The port that will be used to server the app",
         example     : 4000,
     })
-    @IsNumber()
-    @Min(0)
-    @Max(MAX_PORT_NUMBER)
+    @AppNumber({
+        min : 0, 
+        max : MAX_PORT_NUMBER,
+    })
     readonly port! : number;
     
     @Documentation({

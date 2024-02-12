@@ -1,12 +1,10 @@
 import { EntityModel, } from "@src/framework/clean-architecture/domain/entity.model";
 import { Documentation, } from "@src/framework/documentation/documentation";
+import { AppNumber, } from "@src/framework/validators/app-number.decorator";
 import {
     EntityIdExample, IsEntityId, 
 } from "@src/framework/validators/is-entity-id";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
-import {
-    IsNumber, Min, 
-} from "class-validator";
 
 
 export class ShortURLStats extends EntityModel {
@@ -16,8 +14,9 @@ export class ShortURLStats extends EntityModel {
         description : "The number of requests that short url equivalence has received",
         example     : 10,
     })
-    @IsNumber()
-    @Min(0)
+    @AppNumber({
+        min: 0, 
+    })
     public numberOfRequests ! : number;
     
     @Documentation({
