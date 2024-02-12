@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Documentation, } from "@src/framework/documentation/documentation";
 import { Type, } from "class-transformer";
 import {
     IsArray, isArray, IsInstance, ValidateNested, 
@@ -22,6 +23,10 @@ export function ValidInstanceOf(
             IsArray()(target, propertyKey);
             ValidateNested({
                 each: true,
+            })(target, propertyKey);
+            Documentation({
+                isArray: true, 
+                type,
             })(target, propertyKey);
         } else {
             ValidateNested()(target, propertyKey);

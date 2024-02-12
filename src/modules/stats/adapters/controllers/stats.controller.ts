@@ -6,8 +6,9 @@ import { DocumentAPIResponse, } from "@src/framework/documentation/document-api-
 import {
     FindShortURLStatsUseCase, 
 } from "@src/modules/stats/application/use-cases/find-short-url-stats.use-case";
-import { ShortURLRegistryPaginationOutput, } from "@src/modules/stats/domain/models/short-url-registry-pagination-output.model";
+
 import { ShortURLStatsPaginationInput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-input.model";
+import { ShortURLStatsPaginationOutput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-output.model";
 
 
 @Controller("stats")
@@ -20,7 +21,7 @@ export class URLRegistryController implements APIController<URLRegistryControlle
     }
 
     @DocumentAPIResponse({
-        response : [ShortURLRegistryPaginationOutput,],
+        response : [ShortURLStatsPaginationOutput,],
         errors   : [],
     })
     @Get()

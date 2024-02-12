@@ -3,6 +3,7 @@ import { applyDecorators, } from "@nestjs/common";
 import {
     ApiProperty, 
 } from "@nestjs/swagger";
+import { ClassType, } from "@src/framework/types/type-utils";
 import {
     Expose, 
 } from "class-transformer";
@@ -13,9 +14,11 @@ import {
 
 
 export type DocumentationProperties = {
-    description ?: string;
-    example ?: unknown;
+    description ?: string
+    example ?: unknown
     required ?: boolean
+    isArray ?: boolean
+    type ?: ClassType<unknown>
 }
 
 /**
