@@ -2,6 +2,9 @@ import {
     Injectable, NestInterceptor, ExecutionContext, CallHandler, 
 } from "@nestjs/common";
 import {
+    get, isObject, 
+} from "lodash";
+import {
     Observable, map, 
 } from "rxjs";
 
@@ -13,8 +16,8 @@ export class DomainErrorCodeInterceptor implements NestInterceptor {
             .handle()
             .pipe(
                 map((responseBody) => {
-                    if (responseBody["errorType"]) {
-                        context.switchToHttp().getResponse().status(responseBody?.code);
+                    if (isObject(responseBody) && get(responseBody, "errorType")) {
+                        context.switchToHttp().getResponse().status(get(responseBody, "code"));
                     }
                     return responseBody;
                 }),

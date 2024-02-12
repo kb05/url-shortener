@@ -3,9 +3,10 @@ import { generateCrudService, } from "@src/framework/clean-architecture/applicat
 import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
 import { UUIDService, } from "@src/framework/modules/uuid/uuid.service";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
-import { ShortUrlEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/admin.not-found.error";
 import { DuplicatedShortUUIDError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-uuid.error";
 import { DuplicatedURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-url.error";
+import { ShortUrlEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/short-url-equivalence.not-found.error";
+import { ShortUUIDURLEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/short-uuid-url-equivalence.not-found.error";
 import { CreateShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/short-url-equivalence.repository";
@@ -54,12 +55,24 @@ export class ShortUrlEquivalenceService extends generateCrudService({
         }
     }
 
-    public async findByURL(url : string) : Promise<ShortURLEquivalence|undefined> { 
+    public async findByURL(url : ShortURLEquivalence["url"]) : Promise<ShortURLEquivalence|undefined> { 
         return this.shortURLEquivalenceRepository.findByURL(url);
     }
 
-    public async findByShortUUID(shortUUID : string) : Promise<ShortURLEquivalence|undefined> { 
+    public async findByShortUUID(shortUUID : ShortURLEquivalence["shortUUID"]) : Promise<ShortURLEquivalence|undefined> { 
         return this.shortURLEquivalenceRepository.findByShortUUID(shortUUID);
+    }
+
+    public async getByShortUUID(shortUUID : ShortURLEquivalence["shortUUID"]) : Promise<ShortURLEquivalence | ShortUUIDURLEquivalenceNotFoundError> { 
+        const shortURLEquivalence = await this.shortURLEquivalenceRepository.findByShortUUID(shortUUID);
+
+        if (!shortURLEquivalence) {
+            return transformAndValidate(ShortUUIDURLEquivalenceNotFoundError, {
+                shortUUID,
+            });
+        }
+
+        return shortURLEquivalence;
     }
 
 

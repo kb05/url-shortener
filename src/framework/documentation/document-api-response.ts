@@ -4,7 +4,8 @@ import {
     ApiResponse, 
 } from "@nestjs/swagger";
 import { domainErrorConstructorToErrorCode, } from "@src/framework/clean-architecture/adapters/controllers/domain-error-to.error.code";
-import { DTO, } from "@src/framework/clean-architecture/adapters/controllers/dto";
+
+import { ErrorDTO, } from "@src/framework/clean-architecture/adapters/controllers/error-dto";
 import { DomainError, } from "@src/framework/clean-architecture/domain/error";
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 import { applyDecorators, } from "@src/framework/decorators/apply-decorators";
@@ -25,7 +26,7 @@ function generateErrorClassType({
     errorCode : number
 }) {
    
-    class errorClassType extends DTO {
+    class errorClassType extends ErrorDTO {
 
         @Documentation({
             description : "The error type",

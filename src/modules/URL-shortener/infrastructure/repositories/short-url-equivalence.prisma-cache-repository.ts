@@ -34,7 +34,6 @@ export class ShortURLEquivalencePrismaCacheRepository extends ShortURLEquivalenc
         return storedModel;
     }
 
-
     async findByShortUUID(shortUUID : string) : Promise<ShortURLEquivalence | undefined> {
         return this.cacheService.getOrSet({
             modelType   : ShortURLEquivalence,
