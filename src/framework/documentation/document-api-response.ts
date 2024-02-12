@@ -109,7 +109,15 @@ export function DocumentAPIResponse({
         });
       
         const errorResponseConstructor = ModelIntersectionType(domainErrorConstructor, errorWithExtraFields);
+        Object.defineProperty(
+            errorResponseConstructor,
+            "name",
+            {
+                value: domainErrorConstructor.name + "DTO", 
+            }
+        );
 
+        console.log(errorResponseConstructor.name);
         return ApiResponse(
             {
                 type   : errorResponseConstructor,
