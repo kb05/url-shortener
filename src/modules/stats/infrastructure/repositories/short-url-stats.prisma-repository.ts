@@ -1,5 +1,7 @@
 import { Injectable, } from "@nestjs/common";
-import { prismaPaginatedResultToPaginatePrisma, } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/paginate-prisma-result-to-pagination-result";
+import {
+    prismaPaginatedResultToPaginatePrisma,
+} from "@src/framework/clean-architecture/infrastructure/repositories/prisma/paginate-prisma-result-to-pagination-result";
 import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
 import { transformUnknownAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { ShortURLStatsPaginationInput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-input.model";

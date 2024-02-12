@@ -7,7 +7,7 @@ import { ShortURLStatsRepository, } from "@src/modules/stats/domain/repositories
 
 
 @Injectable()
-export class FindURLStatsUseCase extends UseCase {
+export class FindShortURLStatsUseCase extends UseCase {
     
     constructor(
         private shortURLStatsRepository : ShortURLStatsRepository

@@ -5,7 +5,7 @@ import { URLRegistryController, } from "@src/modules/stats/adapters/controllers/
 import { ShortURLRegistryService, } from "@src/modules/stats/application/services/short-url-registry.service";
 import { AddRequestToShortURLRegistryUseCase, } from "@src/modules/stats/application/use-cases/add-request-to-short-url-registry.use-case";
 import { CreateShortURLRegistryUseCase, } from "@src/modules/stats/application/use-cases/create-short-url-registry.use-case";
-import { FindURLStatsUseCase, } from "@src/modules/stats/application/use-cases/find-short-url-registry.use-case";
+import { FindShortURLStatsUseCase, } from "@src/modules/stats/application/use-cases/find-short-url-stats.use-case";
 import { ShortURLRegistryRepository, } from "@src/modules/stats/domain/repositories/short-url-registry.repository";
 import { ShortURLStatsRepository, } from "@src/modules/stats/domain/repositories/short-url-stats.repository";
 import { ShortURLRegistryPrismaRepository, } from "@src/modules/stats/infrastructure/repositories/short-url-registry.prisma-repository";
@@ -27,7 +27,7 @@ import { URLShortenerModule, } from "@src/modules/URL-shortener/URL-shortener.mo
         ShortURLRegistryService,
         CreateShortURLRegistryUseCase,
         AddRequestToShortURLRegistryUseCase,
-        FindURLStatsUseCase,
+        FindShortURLStatsUseCase,
         {
             provide  : ShortURLRegistryRepository,
             useClass : ShortURLRegistryPrismaRepository,

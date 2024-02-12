@@ -176,7 +176,6 @@ export function generatePrismaCrudRepository<
                 }
             );
             
-            
             return prismaPaginatedResultToPaginatePrisma<PrismaEntityFields>(
                 paginatedResult as any
             );
