@@ -2,8 +2,10 @@ import {
     Global,
     Module, 
 } from "@nestjs/common";
-import { ApplicationConsoleLogger, } from "@src/framework/modules/global-resources/console-logger.class";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
+import { EventService, } from "@src/framework/modules/global-resources/events/event-service";
+import { NodeEventService, } from "@src/framework/modules/global-resources/events/node-event-service";
+import { ApplicationConsoleLogger, } from "@src/framework/modules/global-resources/logger/console-logger.class";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger/logger";
 
 
 @Global()
@@ -13,7 +15,11 @@ import { ApplicationLogger, } from "@src/framework/modules/global-resources/logg
             provide  : ApplicationLogger,
             useClass : ApplicationConsoleLogger,
         },
+        {
+            provide  : EventService,
+            useClass : NodeEventService,
+        },
     ],
-    exports: [ApplicationLogger,],
+    exports: [ApplicationLogger, EventService,],
 })
 export class GlobalResources{}

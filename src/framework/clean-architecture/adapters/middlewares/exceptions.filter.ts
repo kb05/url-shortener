@@ -6,7 +6,7 @@ import {
     HttpStatus,
 } from "@nestjs/common";
 import { HttpAdapterHost, } from "@nestjs/core";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger/logger";
 import {
     get, 
 } from "lodash";

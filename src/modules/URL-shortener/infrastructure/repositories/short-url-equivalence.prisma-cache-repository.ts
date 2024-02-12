@@ -1,6 +1,6 @@
 import { Injectable, } from "@nestjs/common";
 import { CacheService, } from "@src/framework/modules/cache/cache.service";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger/logger";
 import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import { ShortURLEquivalencePrismaRepository, } from "@src/modules/URL-shortener/infrastructure/repositories/short-url-equivalence.prisma-repository";

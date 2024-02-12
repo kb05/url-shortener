@@ -5,7 +5,7 @@ import {
 import { Model, } from "@src/framework/clean-architecture/domain/model";
 import { env, } from "@src/framework/environment/env";
 import { CacheService, } from "@src/framework/modules/cache/cache.service";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger/logger";
 import { ClassType, } from "@src/framework/types/type-utils";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import {

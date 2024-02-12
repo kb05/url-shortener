@@ -1,6 +1,6 @@
 import { Injectable, } from "@nestjs/common";
 import { generateCrudService, } from "@src/framework/clean-architecture/application/generate-crud-service";
-import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger";
+import { ApplicationLogger, } from "@src/framework/modules/global-resources/logger/logger";
 import { UUIDService, } from "@src/framework/modules/uuid/uuid.service";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { DuplicatedShortUUIDError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-uuid.error";

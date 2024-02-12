@@ -20,8 +20,6 @@ import { ShortUUIDURLEquivalenceNotFoundError, } from "@src/modules/URL-shortene
 import {
     CreateShortURLEquivalenceAsUser,
 } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence-as-user.model";
-
-
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import { Response, } from "express";
 
