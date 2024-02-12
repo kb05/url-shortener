@@ -7,7 +7,7 @@ import {
     FindURLStatsUseCase, 
 } from "@src/modules/stats/application/use-cases/find-short-url-registry.use-case";
 import { ShortURLRegistryPaginationOutput, } from "@src/modules/stats/domain/models/short-url-registry-pagination-output.model";
-import { ShortURLEquivalencePaginationInput, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence-pagination-input.model";
+import { ShortURLStatsPaginationInput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-input.model";
 
 
 @Controller("stats")
@@ -25,10 +25,10 @@ export class URLRegistryController implements APIController<URLRegistryControlle
     })
     @Get()
     async find(
-    @Query() shortURLEquivalencePaginationInput : ShortURLEquivalencePaginationInput,
+    @Query()  shortURLStatsPaginationInput : ShortURLStatsPaginationInput,
     ) {
         return this.findURLStatsUseCase.perform({
-            shortURLEquivalencePaginationInput, 
+            shortURLStatsPaginationInput, 
         });
     }
 }
