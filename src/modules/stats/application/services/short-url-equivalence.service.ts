@@ -3,6 +3,7 @@ import { generateCrudService, } from "@src/framework/clean-architecture/applicat
 import { isDomainError, } from "@src/framework/clean-architecture/domain/errors/is-domain-error";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { DuplicatedShortURLStatsError, } from "@src/modules/stats/domain/errors/duplicated-short-url-stats.error";
+import { ShortURLStatsOfShortURLEquivalenceNotFoundError, } from "@src/modules/stats/domain/errors/short-url-stats-of-short-url-equivalence.not-found.error";
 import { ShortURLStatsNotFoundError, } from "@src/modules/stats/domain/errors/short-url-stats.not-found.error";
 import { CreateShortURLStats, } from "@src/modules/stats/domain/models/create-short-url-stats.model";
 import { ShortURLStats, } from "@src/modules/stats/domain/models/short-url-stats.model";
@@ -48,6 +49,20 @@ export class ShortURLStatsService extends generateCrudService({
             return shortURLEquivalence;
         }
        
+    }
+
+    public async getByShortURLEquivalenceId(
+        shortURLEquivalenceId : ShortURLStats["shortURLEquivalenceId"]
+    ) : Promise<ShortURLStats | ShortURLStatsOfShortURLEquivalenceNotFoundError> { 
+        const shortURLStats = await this.shortURLStatsRepository.findByShortURLEquivalenceId(shortURLEquivalenceId);
+
+        if (!shortURLStats) {
+            return transformAndValidate(ShortURLStatsOfShortURLEquivalenceNotFoundError, {
+                shortURLEquivalenceId,
+            });
+        }
+
+        return shortURLStats;
     }
 
 }

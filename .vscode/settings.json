@@ -42,7 +42,7 @@
         "*.model.ts": "Contributing",
         "*.event-subscriber.ts": "Command",
         "*.mapper.ts": "Diff",
-        "*.typeorm-repository.ts": "Search",
+        "*.repository.ts": "Search",
         "*.sendgrid-repository.ts": "Search",
         "*.test-builder.ts": "Test-ts",
         "*.legacy-repository.ts": "Minecraft",
