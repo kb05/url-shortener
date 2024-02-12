@@ -8,8 +8,8 @@ import {
     CreateShortURLEquivalenceAsUserUseCase,
 } from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
 import {
-    FindShortURLEquivalenceAsUserUseCase,
-} from "@src/modules/URL-shortener/application/use-cases/find-short-url-equivalence-by-short-uuid-as-user.use-case";
+    ResolveShortURLEquivalenceAsUserUseCase,
+} from "@src/modules/URL-shortener/application/use-cases/resolve-short-url-equivalence-by-short-uuid-as-user.use-case";
 import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/short-url-equivalence.repository";
 import {
     ShortURLEquivalencePrismaCacheRepository,
@@ -32,7 +32,7 @@ import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastr
             useClass : ShortURLEquivalencePrismaCacheRepository,
         },
         CreateShortURLEquivalenceAsUserUseCase,
-        FindShortURLEquivalenceAsUserUseCase,
+        ResolveShortURLEquivalenceAsUserUseCase,
     ],
     exports: [
         ShortUrlEquivalenceService,

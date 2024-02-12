@@ -17,8 +17,8 @@ import {
     CreateShortURLEquivalenceAsUserUseCase,
 } from "@src/modules/URL-shortener/application/use-cases/create-short-url-equivalence-as-user.use-case";
 import {
-    FindShortURLEquivalenceAsUserUseCase,
-} from "@src/modules/URL-shortener/application/use-cases/find-short-url-equivalence-by-short-uuid-as-user.use-case";
+    ResolveShortURLEquivalenceAsUserUseCase,
+} from "@src/modules/URL-shortener/application/use-cases/resolve-short-url-equivalence-by-short-uuid-as-user.use-case";
 import { DuplicatedShortUUIDError, } from "@src/modules/URL-shortener/domain/errors/duplicated-short-uuid.error";
 import { DuplicatedURLError, } from "@src/modules/URL-shortener/domain/errors/duplicated-url.error";
 import { ShortUUIDURLEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/short-uuid-url-equivalence.not-found.error";
@@ -32,7 +32,7 @@ import { Response, } from "express";
 export class ShortURLController implements APIController<ShortURLController> {
     constructor(
         private readonly createShortURLEquivalenceAsUserUseCase : CreateShortURLEquivalenceAsUserUseCase,
-        private readonly findShortURLEquivalenceAsUserUseCase : FindShortURLEquivalenceAsUserUseCase,
+        private readonly findShortURLEquivalenceAsUserUseCase : ResolveShortURLEquivalenceAsUserUseCase,
         private readonly prismaService : PrismaService
     ) { }
 
