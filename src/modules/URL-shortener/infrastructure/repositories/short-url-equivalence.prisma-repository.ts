@@ -14,6 +14,10 @@ import { transformAndValidate, } from "@src/framework/validators/class-validator
 import {
     CreateShortURLEquivalence,
 } from "@src/modules/URL-shortener/domain/models/create-short-url-equivalence.model";
+import { ShortURLEquivalencePaginationInput, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence-pagination-input.model";
+import { ShortURLEquivalencePaginationOutput, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence-pagination-output.model";
+
+
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domain/repositories/short-url-equivalence.repository";
 
@@ -25,7 +29,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
     entityVirtualPrismaRepository:
         generateVirtualPrismaRepositoryReference<PrismaShortURLEquivalence, "prismaShortURLEquivalence">("prismaShortURLEquivalence"),
 }) implements ShortURLEquivalenceRepository {
-   
+
     
     async entityToModel
     (
@@ -82,6 +86,31 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         }
         
         return this.entityToModel(shortURLEquivalence);
+    }
+
+    async findByPaginated(shortURLEquivalencePaginationInput : ShortURLEquivalencePaginationInput) : Promise<ShortURLEquivalencePaginationOutput> {
+        
+        const paginatedEntities = await this.findPaginated({
+            options: {
+                where: {
+                    url: shortURLEquivalencePaginationInput.url && {
+                        contains: shortURLEquivalencePaginationInput.url,
+                    },
+                    shortUUID: shortURLEquivalencePaginationInput.shortUUID && {
+                        contains: shortURLEquivalencePaginationInput.shortUUID,
+                    },
+                },
+            },
+            pagination: {
+                limit : shortURLEquivalencePaginationInput.limit,
+                page  : shortURLEquivalencePaginationInput.page,
+            },
+        });
+
+        return transformAndValidate(ShortURLEquivalencePaginationOutput, {
+            ...paginatedEntities,
+            results: await Promise.all(paginatedEntities.results.map(this.entityToModel)),
+        });
     }
 
 }

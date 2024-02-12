@@ -12,7 +12,7 @@ export class ShortURLEquivalencePrismaCacheRepository extends ShortURLEquivalenc
     constructor(
         private readonly applicationLogger : ApplicationLogger,
         private readonly cacheService : CacheService,
-        private readonly prismaService : PrismaService
+        prismaService : PrismaService
     ) {
         super(prismaService);
     }

@@ -16,14 +16,14 @@ model PrismaShortURLEquivalence {
     shortUUID               String       @unique @db.VarChar(128)
     createdAt               DateTime      @default(now()) @db.Timestamptz
     updatedAt               DateTime      @updatedAt @db.Timestamptz
-    shortURLEquivalence     PrismaShortURLStats?
+    shortURLEquivalence     PrismaShortURLRegistry?
     
 
     @@map("short-url-equivalences")
 }
 
 
-model PrismaShortURLStats {
+model PrismaShortURLRegistry {
     id                        Int                           @id @default(autoincrement())
     numberOfRequests          Int                           @db.Integer()
     createdAt                 DateTime                      @default(now()) @db.Timestamptz
@@ -32,5 +32,5 @@ model PrismaShortURLStats {
     shortURLEquivalenceId     Int                           @unique
 
 
-    @@map("short-url-stats")
+    @@map("short-url-registry")
 }

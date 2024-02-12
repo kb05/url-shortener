@@ -1,31 +1,42 @@
 import { Injectable, } from "@nestjs/common";
 import { UseCase, } from "@src/framework/clean-architecture/application/use-case";
-import { isDomainError, } from "@src/framework/clean-architecture/domain/errors/is-domain-error";
+import {
+    DEFAULT_PAGE, LIMITLESS_PAGINATION, 
+} from "@src/framework/clean-architecture/domain/types/page-pagination-input.model";
+import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
+
 import { ShortURLStatsService, } from "@src/modules/stats/application/services/short-url-equivalence.service";
-import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
+import { ShortURLStatsPaginationInput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-input.model";
+
+
+import { ShortUrlEquivalenceService, } from "@src/modules/URL-shortener/application/services/short-url-equivalence.service";
+import { ShortURLEquivalencePaginationInput, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence-pagination-input.model";
 
 
 @Injectable()
-export class IncreaseShortURLStatsUseCase extends UseCase {
+export class FindURLStatsUseCase extends UseCase {
     
     constructor(
         private readonly shortURLStatsService : ShortURLStatsService,
+        private readonly shortUrlEquivalenceService : ShortUrlEquivalenceService,
     ) {
         super(); 
     }
 
-    async perform({ shortURLEquivalenceId, } : {
-        shortURLEquivalenceId : ShortURLEquivalence["id"]
+    async perform({ shortURLEquivalencePaginationInput, } : {
+        shortURLEquivalencePaginationInput : ShortURLEquivalencePaginationInput,
     }) {
 
-        const shortURLStats = await this.shortURLStatsService.getByShortURLEquivalenceId(shortURLEquivalenceId);
-        
-        if (isDomainError(shortURLStats)) {
-            return shortURLStats;
-        }
+        const shortURLEquivalences = await this.shortUrlEquivalenceService.findByPaginated(shortURLEquivalencePaginationInput);
 
-        shortURLStats.numberOfRequests += 1;
+        const jer = await  this.shortURLStatsService.findByPaginated(
+            await transformAndValidate(ShortURLStatsPaginationInput, {
+                limit                  : LIMITLESS_PAGINATION,
+                page                   : DEFAULT_PAGE,
+                shortURLEquivalenceIds : shortURLEquivalences.results.map(shortURLEquivalence => shortURLEquivalence.id),
+            })
+        );
 
-        return this.shortURLStatsService.saveModel(shortURLStats);
+        return jer;
     }
 }

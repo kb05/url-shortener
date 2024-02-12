@@ -65,4 +65,9 @@ export class ShortURLStatsService extends generateCrudService({
         return shortURLStats;
     }
 
+    public findByPaginated(params : Parameters<ShortURLStatsRepository["findByPaginated"]>[0]) {
+        return this.shortURLStatsRepository.findByPaginated(params);
+    }
+
+
 }

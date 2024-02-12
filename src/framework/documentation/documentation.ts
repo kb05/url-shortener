@@ -15,6 +15,7 @@ import {
 export type DocumentationProperties = {
     description ?: string;
     example ?: unknown;
+    required ?: boolean
 }
 
 /**

@@ -11,6 +11,8 @@ import {
 import { CreationPrismaEntityFields, } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/prisma.types";
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import { CreateShortURLStats, } from "@src/modules/stats/domain/models/create-short-url-stats.model";
+import { ShortURLStatsPaginationInput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-input.model";
+import { ShortURLStatsPaginationOutput, } from "@src/modules/stats/domain/models/short-url-stats-pagination-output.model";
 import { ShortURLStats, } from "@src/modules/stats/domain/models/short-url-stats.model";
 import { ShortURLStatsRepository, } from "@src/modules/stats/domain/repositories/short-url-stats.repository";
 
@@ -66,6 +68,38 @@ export class ShortURLStatsPrismaRepository extends generatePrismaCrudRepository(
         }
 
         return this.entityToModel(entity);
+    }
+
+    async findByPaginated(shortURLStatsPaginationInput : ShortURLStatsPaginationInput) : Promise<ShortURLStatsPaginationOutput> {
+        
+        const paginatedEntities = await this.findPaginated({
+            options: {
+                where: {
+                    id: shortURLStatsPaginationInput.shortURLEquivalenceIds && {
+                        in: shortURLStatsPaginationInput.shortURLEquivalenceIds,
+                    },
+                },
+            },
+            pagination: {
+                limit : shortURLStatsPaginationInput.limit,
+                page  : shortURLStatsPaginationInput.page,
+            },
+        });
+
+        const jer = await this.internalPrismaRepository.findMany({
+            select: {
+                createdAt           : true,
+                numberOfRequests    : true,
+                shortURLEquivalence : true,
+            },
+        });
+
+        console.log(jer);
+        
+        return transformAndValidate(ShortURLStatsPaginationOutput, {
+            ...paginatedEntities,
+            results: await Promise.all(paginatedEntities.results.map(this.entityToModel)),
+        });
     }
 
 }

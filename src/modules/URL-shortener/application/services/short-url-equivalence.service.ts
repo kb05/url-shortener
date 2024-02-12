@@ -63,6 +63,10 @@ export class ShortUrlEquivalenceService extends generateCrudService({
         return this.shortURLEquivalenceRepository.findByShortUUID(shortUUID);
     }
 
+    public findByPaginated(params : Parameters<ShortURLEquivalenceRepository["findByPaginated"]>[0]) {
+        return this.shortURLEquivalenceRepository.findByPaginated(params);
+    }
+
     public async getByShortUUID(shortUUID : ShortURLEquivalence["shortUUID"]) : Promise<ShortURLEquivalence | ShortUUIDURLEquivalenceNotFoundError> { 
         const shortURLEquivalence = await this.shortURLEquivalenceRepository.findByShortUUID(shortUUID);
 
