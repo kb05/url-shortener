@@ -1,9 +1,8 @@
-
 import { Test, } from "@nestjs/testing";
 import { CacheModule, } from "@src/framework/modules/cache/cache.module";
-import { GlobalResources, } from "@src/framework/modules/global-resources/global-resources.module";
 import { PrismaModule, } from "@src/framework/modules/prisma/prisma.module";
 import { ApplicationTestingModule, } from "@src/framework/tests/application-testing-module";
+import { TestGlobalResources, } from "@src/framework/tests/test-global-resources.module";
 import { ClassType, } from "@src/framework/types/type-utils";
 
 
@@ -13,7 +12,7 @@ export async function generateTestingModule<T>(module : ClassType<T>) {
         imports: [
             PrismaModule,
             CacheModule,
-            GlobalResources,
+            TestGlobalResources,
             module,
         ],
     }).compile();

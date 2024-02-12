@@ -6941,6 +6941,7 @@ __metadata:
     ts-jest: "npm:^29.1.0"
     ts-loader: "npm:^9.4.3"
     ts-node: "npm:^10.9.2"
+    ts-retry: "npm:^4.2.5"
     tsconfig-paths: "npm:^4.2.0"
     typescript: "npm:^5.1.3"
     uuid: "npm:^9.0.1"
@@ -8065,6 +8066,13 @@ __metadata:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: 10c0/5f29938489f96982a25ba650b64218e83a3357d76f7bede80195c65ab44ad279c8357264639b7abdd5d7e75fc269a83daa0e9c62fd8637a3def67254ecc9ddc2
+  languageName: node
+  linkType: hard
+
+"ts-retry@npm:^4.2.5":
+  version: 4.2.5
+  resolution: "ts-retry@npm:4.2.5"
+  checksum: 10c0/2365954782b1761923ac2f2d7590bc3c0e9f4adda4f1c3a19a412edc53f09d8c6588efab3b974a1174ba3e29da69ae17831ffb4a2454d2e6d88e3554d76f0e50
   languageName: node
   linkType: hard
 
