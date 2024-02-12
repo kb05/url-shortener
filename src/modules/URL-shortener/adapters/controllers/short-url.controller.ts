@@ -1,11 +1,16 @@
 import {
     Body,
-    Controller,    Get,    Param,    Post, Res, 
+    Controller,
+    Get,
+    Param,
+    Post,
+    Res, 
 } from "@nestjs/common";
 import { ApiParam, } from "@nestjs/swagger";
 import { APIController, } from "@src/framework/clean-architecture/adapters/controllers/API-controller.class";
 import { domainErrorToDto, } from "@src/framework/clean-architecture/adapters/controllers/domain-error-to-dto";
 import { DocumentAPIResponse, } from "@src/framework/documentation/document-api-response";
+import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
 import { isInstanceOf, } from "@src/framework/types/type-utils";
 import { ResolveURLParamsDto, } from "@src/modules/URL-shortener/adapters/dtos/resolve-url-params.dto";
 import {
@@ -27,7 +32,8 @@ import { Response, } from "express";
 export class ShortURLController implements APIController<ShortURLController> {
     constructor(
         private readonly createShortURLEquivalenceAsUserUseCase : CreateShortURLEquivalenceAsUserUseCase,
-        private readonly findShortURLEquivalenceAsUserUseCase : FindShortURLEquivalenceAsUserUseCase
+        private readonly findShortURLEquivalenceAsUserUseCase : FindShortURLEquivalenceAsUserUseCase,
+        private readonly prismaService : PrismaService
     ) { }
 
 
@@ -81,4 +87,5 @@ export class ShortURLController implements APIController<ShortURLController> {
 
         res.redirect(urlEquivalence.url);
     }
+
 }

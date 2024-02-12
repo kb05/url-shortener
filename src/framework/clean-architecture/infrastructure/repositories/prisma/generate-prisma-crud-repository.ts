@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+
 import { Injectable, } from "@nestjs/common";
-import { PrismaClient, } from "@prisma/client";
 import { EntityModel, } from "@src/framework/clean-architecture/domain/entity.model";
 import { PagePaginationOutput, } from "@src/framework/clean-architecture/domain/types/page-pagination-output.model";
 import { PaginationInput, } from "@src/framework/clean-architecture/domain/types/pagination.types";
-
-
 import {
     VirtualPrismaRepository,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/generate-virtual-prisma-repository-reference";
-import { prismaPaginatedResultToPaginatePrisma, } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/paginate-prisma-result-to-pagination-result";
 import {
-    CreationPrismaEntityFields, PrismaEntity, 
+    prismaPaginatedResultToPaginatePrisma,
+} from "@src/framework/clean-architecture/infrastructure/repositories/prisma/paginate-prisma-result-to-pagination-result";
+import {
+    CreationPrismaEntityFields, PrismaEntity, PrismaRepository, 
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/prisma.types";
 import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
 import {
@@ -38,9 +38,10 @@ const paginate = createPaginator({});
 
 export function generatePrismaCrudRepository<
     PrismaEntityType extends PrismaEntity,
-    EntityVirtualPrismaRepository extends VirtualPrismaRepository<PrismaEntityType>,
+    Repository extends PrismaRepository,
+    EntityVirtualPrismaRepository extends VirtualPrismaRepository<PrismaEntityType, Repository>,
     Model extends EntityModel,   
-    CreateModelInformation extends DeepPartial<Model>
+    CreateModelInformation extends DeepPartial<Model>,
 >({
     ModelClass,
     CreateModelInformationClass,
@@ -51,7 +52,7 @@ export function generatePrismaCrudRepository<
     CreateModelInformationClass : ClassType<CreateModelInformation>,
 }) {
 
-    type EntityRepository = PrismaClient[EntityVirtualPrismaRepository["name"]]
+    type EntityRepository = EntityVirtualPrismaRepository["prismaRepository"]
     type PrismaEntityFields = EntityVirtualPrismaRepository["typeReference"]
 
     @Injectable()
@@ -68,7 +69,7 @@ export function generatePrismaCrudRepository<
         constructor(
             prismaService : PrismaService
         ) {
-            this.internalPrismaRepository = prismaService[entityVirtualPrismaRepository.name];
+            this.internalPrismaRepository = prismaService[entityVirtualPrismaRepository.name as any] as any;
             this.proxyPrismaRepository = this.internalPrismaRepository;
         }
 
@@ -103,7 +104,7 @@ export function generatePrismaCrudRepository<
 
         public async findById(id : Model["id"]) : Promise<Model | undefined> {
 
-            const entity = await this.internalPrismaRepository.findFirst({
+            const entity = await this.proxyPrismaRepository.findFirst({
                 where: {
                     id,
                 },
@@ -113,14 +114,14 @@ export function generatePrismaCrudRepository<
                 return undefined;
             }
 
-            return this.entityToModel(entity as any);
+            return this.entityToModel(entity);
         }
 
 
         public async deleteById(id : Model["id"]) : Promise<boolean>{
            
             try {
-                await this.internalPrismaRepository.delete({
+                await this.proxyPrismaRepository.delete({
                     where: {
                         id,
                     },
@@ -139,14 +140,14 @@ export function generatePrismaCrudRepository<
 
             const entity = await this.modelToEntity(validatedModel);
 
-            const savedEntity = await this.internalPrismaRepository.update({
+            const savedEntity = await this.proxyPrismaRepository.update({
                 where: {
                     id: entity.id,
                 },
                 data: {
                     ...entity,
                     updatedAt: new Date(),
-                } as any,
+                },
             }) as unknown as PrismaEntityFields;
 
             return this.entityToModel(savedEntity);

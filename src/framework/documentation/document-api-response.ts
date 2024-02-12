@@ -117,7 +117,6 @@ export function DocumentAPIResponse({
             }
         );
 
-        console.log(errorResponseConstructor.name);
         return ApiResponse(
             {
                 type   : errorResponseConstructor,

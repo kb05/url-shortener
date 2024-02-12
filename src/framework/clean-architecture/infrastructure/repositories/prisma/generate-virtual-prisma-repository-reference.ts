@@ -1,19 +1,24 @@
 import {
     GlobalPrismaRepositories, PrismaEntity,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/prisma.types";
+import { PrismaService, } from "@src/framework/modules/prisma/prisma.service";
 
 
-export type VirtualPrismaRepository<T extends PrismaEntity> = {
+export type VirtualPrismaRepository<VirtualPrismaEntity extends PrismaEntity, VirtualPrismaRepository> = {
     name : (keyof GlobalPrismaRepositories) & string,
-    typeReference : T // This value is virtual, is only a reference to user the mapper with strict typing
+    prismaRepository : VirtualPrismaRepository,
+    typeReference : VirtualPrismaEntity // This value is virtual, is only a reference to user the mapper with strict typing
 }
 
-export function generateVirtualPrismaRepositoryReference<T extends PrismaEntity>(
-    name : (keyof GlobalPrismaRepositories) & string,
+export function generateVirtualPrismaRepositoryReference<
+    VirtualPrismaEntity extends PrismaEntity,
+    PrismaEntityName extends string & keyof GlobalPrismaRepositories & keyof PrismaService
+>(
+    name : PrismaEntityName,
 ) {
     return {
         name,
         typeReference: undefined,
-    } as unknown as VirtualPrismaRepository<T>;
+    } as unknown as VirtualPrismaRepository<VirtualPrismaEntity, PrismaService[typeof name]>;
     
 }

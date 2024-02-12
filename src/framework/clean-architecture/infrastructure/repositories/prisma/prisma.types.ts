@@ -15,3 +15,8 @@ export type PrismaEntity = {
 }
 
 export type CreationPrismaEntityFields<T extends PrismaEntity> = Omit<T, "id" | "createdAt" | "updatedAt">
+
+export type PrismaRepository = { 
+    findMany(params : unknown) : unknown
+    findFirst(params : unknown) : unknown
+}

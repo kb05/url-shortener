@@ -8,6 +8,8 @@ import {
 import {
     generateVirtualPrismaRepositoryReference,
 } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/generate-virtual-prisma-repository-reference";
+import { CreationPrismaEntityFields, } from "@src/framework/clean-architecture/infrastructure/repositories/prisma/prisma.types";
+
 import { transformAndValidate, } from "@src/framework/validators/class-validator-transform";
 import {
     CreateShortURLEquivalence,
@@ -18,9 +20,10 @@ import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domai
 
 @Injectable()
 export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepository({
-    CreateModelInformationClass   : CreateShortURLEquivalence,
-    ModelClass                    : ShortURLEquivalence,
-    entityVirtualPrismaRepository : generateVirtualPrismaRepositoryReference<PrismaShortURLEquivalence>("prismaShortURLEquivalence"),
+    CreateModelInformationClass : CreateShortURLEquivalence,
+    ModelClass                  : ShortURLEquivalence,
+    entityVirtualPrismaRepository:
+        generateVirtualPrismaRepositoryReference<PrismaShortURLEquivalence, "prismaShortURLEquivalence">("prismaShortURLEquivalence"),
 }) implements ShortURLEquivalenceRepository {
    
     
@@ -33,7 +36,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         });
     }
     
-    modelToEntity(model : ShortURLEquivalence){
+    modelToEntity(model : ShortURLEquivalence) : PrismaShortURLEquivalence{
         return {
             createdAt : model.createdAt,
             id        : model.id,
@@ -45,7 +48,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
 
     createModelInformationToEntity(
         createModelInformation : CreateShortURLEquivalence
-    ) {
+    ) : CreationPrismaEntityFields<PrismaShortURLEquivalence> {
         return {
             shortUUID : createModelInformation.shortUUID,
             url       : createModelInformation.url,
@@ -53,7 +56,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
       
     }
 
-    async findByURL(url : string) : Promise<ShortURLEquivalence | undefined> {
+    async findByURL(url : string) : Promise<ShortURLEquivalence | undefined> {        
         const shortURLEquivalence = await this.internalPrismaRepository.findFirst({
             where: {
                 url,
@@ -77,7 +80,7 @@ export class ShortURLEquivalencePrismaRepository extends generatePrismaCrudRepos
         if (!shortURLEquivalence) {
             return undefined;
         }
-
+        
         return this.entityToModel(shortURLEquivalence);
     }
 

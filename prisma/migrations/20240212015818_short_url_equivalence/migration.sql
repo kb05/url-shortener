@@ -8,3 +8,9 @@ CREATE TABLE "short-url-equivalences" (
 
     CONSTRAINT "short-url-equivalences_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "short-url-equivalences_url_key" ON "short-url-equivalences"("url");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "short-url-equivalences_shortUUID_key" ON "short-url-equivalences"("shortUUID");
