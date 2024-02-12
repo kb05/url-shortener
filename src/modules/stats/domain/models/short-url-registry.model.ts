@@ -7,7 +7,7 @@ import {
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 
 
-export class ShortURLStats extends EntityModel {
+export class ShortURLRegistry extends EntityModel {
     private __nominal! : void;
 
     @Documentation({

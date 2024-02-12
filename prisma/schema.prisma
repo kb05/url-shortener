@@ -32,5 +32,5 @@ model PrismaShortURLRegistry {
     shortURLEquivalenceId     Int                           @unique
 
 
-    @@map("short-url-registry")
+    @@map("short-url-registries")
 }

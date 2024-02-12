@@ -1,14 +1,14 @@
 import { Module, } from "@nestjs/common";
 import { PrismaModule, } from "@src/framework/modules/prisma/prisma.module";
-import { ShortURLStatsEventSubscriber, } from "@src/modules/stats/adapters/controllers/short-url-stats.event-subscriber";
-import { ShortURLStatsController, } from "@src/modules/stats/adapters/controllers/stats.controller";
-import { ShortURLStatsService, } from "@src/modules/stats/application/services/short-url-equivalence.service";
-import { CreateShortURLStatsUseCase, } from "@src/modules/stats/application/use-cases/create-short-url-stats.use-case";
-import { FindURLStatsUseCase, } from "@src/modules/stats/application/use-cases/find-short-url-stats.use-case";
-import { IncreaseShortURLStatsUseCase, } from "@src/modules/stats/application/use-cases/increase-short-url-stats.use-case";
-import { ShortURLStatsRepository, } from "@src/modules/stats/domain/repositories/short-url-stats.repository";
-import { ShortURLStatsPrismaRepository, } from "@src/modules/stats/infrastructure/repositories/short-url-stats.prisma-repository";
-import { ShortURLStatsBuilder, } from "@src/modules/stats/infrastructure/tests/short-url-equivalence.builder";
+import { URLRegistryEventSubscriber, } from "@src/modules/stats/adapters/controllers/short-url-registry.event-subscriber";
+import { URLRegistryController, } from "@src/modules/stats/adapters/controllers/stats.controller";
+import { ShortURLRegistryService, } from "@src/modules/stats/application/services/short-url-registry.service";
+import { CreateShortURLRegistryUseCase, } from "@src/modules/stats/application/use-cases/create-short-url-registry.use-case";
+import { FindURLStatsUseCase, } from "@src/modules/stats/application/use-cases/find-short-url-registry.use-case";
+import { AddRequestToShortURLRegistryUseCase, } from "@src/modules/stats/application/use-cases/add-request-to-short-url-registry.use-case";
+import { ShortURLRegistryRepository, } from "@src/modules/stats/domain/repositories/short-url-registry.repository";
+import { ShortURLRegistryPrismaRepository, } from "@src/modules/stats/infrastructure/repositories/short-url-registry.prisma-repository";
+import { ShortURLRegistryBuilder, } from "@src/modules/stats/infrastructure/tests/short-url-registry.builder";
 import { URLShortenerModule, } from "@src/modules/URL-shortener/URL-shortener.module";
 
 
@@ -18,22 +18,22 @@ import { URLShortenerModule, } from "@src/modules/URL-shortener/URL-shortener.mo
         URLShortenerModule,
     ],
     controllers: [
-        ShortURLStatsController,
+        URLRegistryController,
     ],
     providers: [
-        ShortURLStatsEventSubscriber,
-        ShortURLStatsService,
-        CreateShortURLStatsUseCase,
-        IncreaseShortURLStatsUseCase,
+        URLRegistryEventSubscriber,
+        ShortURLRegistryService,
+        CreateShortURLRegistryUseCase,
+        AddRequestToShortURLRegistryUseCase,
         FindURLStatsUseCase,
         {
-            provide  : ShortURLStatsRepository,
-            useClass : ShortURLStatsPrismaRepository,
+            provide  : ShortURLRegistryRepository,
+            useClass : ShortURLRegistryPrismaRepository,
         },
-        ShortURLStatsBuilder,
+        ShortURLRegistryBuilder,
     ],
     exports: [
-        ShortURLStatsService,
+        ShortURLRegistryService,
     ],
 })
 export class StatsModule {}

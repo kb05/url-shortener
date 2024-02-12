@@ -15,13 +15,13 @@ import { ShortURLEquivalenceRepository, } from "@src/modules/URL-shortener/domai
 export class ShortURLEquivalenceBuilder {
 
     constructor(
-        private readonly shortURLEquivalenceRepository : ShortURLEquivalenceRepository,
+        private readonly repository : ShortURLEquivalenceRepository,
         private readonly uuidService : UUIDService
     ) {
     }
     
     async generate(createShortURLEquivalence : Partial<OmitFunctions<CreateShortURLEquivalence>> = {}) {
-        return this.shortURLEquivalenceRepository.create(
+        return this.repository.create(
             await transformAndValidate(CreateShortURLEquivalence, {
                 shortUUID : await this.uuidService.getShortUUID(10),
                 url       : randUrl(),

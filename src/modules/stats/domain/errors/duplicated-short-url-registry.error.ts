@@ -6,7 +6,7 @@ import {
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 
 
-export class DuplicatedShortURLStatsError extends ConflictDomainError {
+export class DuplicatedShortURLRegistryError extends ConflictDomainError {
     private __nominal! : void;
 
     @Documentation({

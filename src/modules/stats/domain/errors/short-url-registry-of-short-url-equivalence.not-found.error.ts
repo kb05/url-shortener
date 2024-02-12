@@ -3,10 +3,10 @@ import { Documentation, } from "@src/framework/documentation/documentation";
 import {
     EntityIdExample, IsEntityId, 
 } from "@src/framework/validators/is-entity-id";
-import { ShortURLStats, } from "@src/modules/stats/domain/models/short-url-stats.model";
+import { ShortURLRegistry, } from "@src/modules/stats/domain/models/short-url-registry.model";
 
 
-export class ShortURLStatsOfShortURLEquivalenceNotFoundError extends NotFoundDomainError {
+export class ShortURLRegistryOfShortURLEquivalenceNotFoundError extends NotFoundDomainError {
     private __nominal! : void;
 
     @Documentation({
@@ -14,7 +14,7 @@ export class ShortURLStatsOfShortURLEquivalenceNotFoundError extends NotFoundDom
         example     : EntityIdExample,        
     })
     @IsEntityId()
-    public shortURLEquivalenceId ! : ShortURLStats["shortURLEquivalenceId"];
+    public shortURLEquivalenceId ! : ShortURLRegistry["shortURLEquivalenceId"];
     
     
     public describe() : string {

@@ -2,10 +2,10 @@ import { PagePaginationInput, } from "@src/framework/clean-architecture/domain/t
 import { Documentation, } from "@src/framework/documentation/documentation";
 import { AppOptional, } from "@src/framework/validators/app-optional.decorator";
 import { IsEntityId, } from "@src/framework/validators/is-entity-id";
-import { ShortURLStats, } from "@src/modules/stats/domain/models/short-url-stats.model";
+import { ShortURLRegistry, } from "@src/modules/stats/domain/models/short-url-registry.model";
 
 
-export class ShortURLStatsPaginationInput extends PagePaginationInput{
+export class ShortURLRegistryPaginationInput extends PagePaginationInput{
     private __nominal! : void;
 
     @Documentation({
@@ -15,6 +15,6 @@ export class ShortURLStatsPaginationInput extends PagePaginationInput{
         each: true, 
     })
     @AppOptional()
-    public shortURLEquivalenceIds ?: ShortURLStats["shortURLEquivalenceId"][];
+    public shortURLEquivalenceIds ?: ShortURLRegistry["shortURLEquivalenceId"][];
 
 }

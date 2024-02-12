@@ -1,13 +1,10 @@
-
 import { ApplicationTestingModule, } from "@src/framework/tests/application-testing-module";
 import { expectInstanceOf, } from "@src/framework/tests/expect-instance-of";
 import { generateTestingModule, } from "@src/framework/tests/generate-testing-module";
-
-
-import { CreateShortURLStatsUseCase, } from "@src/modules/stats/application/use-cases/create-short-url-stats.use-case";
-import { DuplicatedShortURLStatsError, } from "@src/modules/stats/domain/errors/duplicated-short-url-stats.error";
-import { ShortURLStats, } from "@src/modules/stats/domain/models/short-url-stats.model";
-import { ShortURLStatsBuilder, } from "@src/modules/stats/infrastructure/tests/short-url-equivalence.builder";
+import { CreateShortURLRegistryUseCase, } from "@src/modules/stats/application/use-cases/create-short-url-registry.use-case";
+import { DuplicatedShortURLRegistryError, } from "@src/modules/stats/domain/errors/duplicated-short-url-registry.error";
+import { ShortURLRegistry, } from "@src/modules/stats/domain/models/short-url-registry.model";
+import { ShortURLRegistryBuilder, } from "@src/modules/stats/infrastructure/tests/short-url-registry.builder";
 import { StatsModule, } from "@src/modules/stats/stats.module";
 import { ShortUrlEquivalenceNotFoundError, } from "@src/modules/URL-shortener/domain/errors/short-url-equivalence.not-found.error";
 
@@ -15,18 +12,18 @@ import { ShortUrlEquivalenceNotFoundError, } from "@src/modules/URL-shortener/do
 import { ShortURLEquivalenceBuilder, } from "@src/modules/URL-shortener/infrastructure/tests/short-url-equivalence.builder";
 
 
-describe("CreateShortURLStatsUseCase", () => {
+describe("CreateShortURLRegistryUseCase", () => {
     let applicationTestingModule : ApplicationTestingModule;
 
-    let useCase : CreateShortURLStatsUseCase;
+    let useCase : CreateShortURLRegistryUseCase;
     let shortURLEquivalenceBuilder : ShortURLEquivalenceBuilder;
-    let shortURLStatsBuilder : ShortURLStatsBuilder;
+    let URLRegistryBuilder : ShortURLRegistryBuilder;
     
     beforeAll(async () => {
         applicationTestingModule = await generateTestingModule(StatsModule);
-        useCase = applicationTestingModule.resolve(CreateShortURLStatsUseCase);
+        useCase = applicationTestingModule.resolve(CreateShortURLRegistryUseCase);
         shortURLEquivalenceBuilder = applicationTestingModule.resolve(ShortURLEquivalenceBuilder);
-        shortURLStatsBuilder = applicationTestingModule.resolve(ShortURLStatsBuilder);
+        URLRegistryBuilder = applicationTestingModule.resolve(ShortURLRegistryBuilder);
     });
 
     beforeEach(async () => { 
@@ -42,7 +39,7 @@ describe("CreateShortURLStatsUseCase", () => {
             shortURLEquivalenceId: shortURLEquivalence.id, 
         });
 
-        expectInstanceOf(result, ShortURLStats);
+        expectInstanceOf(result, ShortURLRegistry);
     });
 
     it("does not creates the short url stats if the related shortURLEquivalence does not exist", async () => {
@@ -59,7 +56,7 @@ describe("CreateShortURLStatsUseCase", () => {
     it("does not creates the short url stats if already exists another short url stats related to the same shortURLEquivalence", async () => {
 
         const shortURLEquivalence = await shortURLEquivalenceBuilder.generate();
-        await shortURLStatsBuilder.generate({
+        await URLRegistryBuilder.generate({
             shortURLEquivalenceId: shortURLEquivalence.id,
         });
 
@@ -67,7 +64,7 @@ describe("CreateShortURLStatsUseCase", () => {
             shortURLEquivalenceId: shortURLEquivalence.id, 
         });
 
-        expectInstanceOf(result, DuplicatedShortURLStatsError);
+        expectInstanceOf(result, DuplicatedShortURLRegistryError);
     });
 
 });

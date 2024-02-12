@@ -4,10 +4,10 @@ import {
     EntityIdExample, IsEntityId, 
 } from "@src/framework/validators/is-entity-id";
 
-import { ShortURLStats, } from "@src/modules/stats/domain/models/short-url-stats.model";
+import { ShortURLRegistry, } from "@src/modules/stats/domain/models/short-url-registry.model";
 
 
-export class ShortURLStatsNotFoundError extends EntityIdNotFoundError {
+export class ShortURLRegistryNotFoundError extends EntityIdNotFoundError {
     private __nominal! : void;
 
     @Documentation({
@@ -15,7 +15,7 @@ export class ShortURLStatsNotFoundError extends EntityIdNotFoundError {
         example     : EntityIdExample,        
     })
     @IsEntityId()
-    public id ! : ShortURLStats["id"];
+    public id ! : ShortURLRegistry["id"];
     
     
     public describe() : string {

@@ -1,15 +1,15 @@
 import { Injectable, } from "@nestjs/common";
 import { UseCase, } from "@src/framework/clean-architecture/application/use-case";
 import { isDomainError, } from "@src/framework/clean-architecture/domain/errors/is-domain-error";
-import { ShortURLStatsService, } from "@src/modules/stats/application/services/short-url-equivalence.service";
+import { ShortURLRegistryService, } from "@src/modules/stats/application/services/short-url-registry.service";
 import { ShortURLEquivalence, } from "@src/modules/URL-shortener/domain/models/short-url-equivalence.model";
 
 
 @Injectable()
-export class IncreaseShortURLStatsUseCase extends UseCase {
+export class AddRequestToShortURLRegistryUseCase extends UseCase {
     
     constructor(
-        private readonly shortURLStatsService : ShortURLStatsService,
+        private readonly URLRegistryService : ShortURLRegistryService,
     ) {
         super(); 
     }
@@ -18,14 +18,14 @@ export class IncreaseShortURLStatsUseCase extends UseCase {
         shortURLEquivalenceId : ShortURLEquivalence["id"]
     }) {
 
-        const shortURLStats = await this.shortURLStatsService.getByShortURLEquivalenceId(shortURLEquivalenceId);
+        const URLRegistry = await this.URLRegistryService.getByShortURLEquivalenceId(shortURLEquivalenceId);
         
-        if (isDomainError(shortURLStats)) {
-            return shortURLStats;
+        if (isDomainError(URLRegistry)) {
+            return URLRegistry;
         }
 
-        shortURLStats.numberOfRequests += 1;
+        URLRegistry.numberOfRequests += 1;
 
-        return this.shortURLStatsService.saveModel(shortURLStats);
+        return this.URLRegistryService.saveModel(URLRegistry);
     }
 }
