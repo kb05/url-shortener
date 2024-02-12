@@ -8,10 +8,12 @@ import { ApplicationLogger, } from "@src/framework/modules/global-resources/logg
 
 @Global()
 @Module({
-    providers: [{
-        provide  : ApplicationLogger,
-        useClass : ApplicationConsoleLogger,
-    },],
+    providers: [
+        {
+            provide  : ApplicationLogger,
+            useClass : ApplicationConsoleLogger,
+        },
+    ],
     exports: [ApplicationLogger,],
 })
 export class GlobalResources{}
