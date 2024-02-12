@@ -85,7 +85,11 @@ export class ShortURLController implements APIController<ShortURLController> {
             return domainErrorToDto(urlEquivalence);
         }
 
-        res.redirect(urlEquivalence.url);
+        const url = urlEquivalence.url.startsWith("http")
+            ? urlEquivalence.url 
+            : `https://${urlEquivalence.url}`;
+
+        res.redirect(url);
     }
 
 }

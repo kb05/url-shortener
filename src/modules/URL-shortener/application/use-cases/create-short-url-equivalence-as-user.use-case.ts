@@ -59,7 +59,7 @@ export class CreateShortURLEquivalenceAsUserUseCase extends UseCase {
     private generateURLFromShortEquivalence(shortURLEquivalence : ShortURLEquivalence) : URL { 
         const url = new URL(env.applicationDomain);
 
-        url.pathname = `/short-url/${shortURLEquivalence.shortUUID}`;
+        url.pathname = `api/short-url/${shortURLEquivalence.shortUUID}`;
 
         return url;
     }
