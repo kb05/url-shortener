@@ -51,7 +51,7 @@ export class ShortUrlEquivalenceService extends generateCrudService({
 
         if (urlEquivalenceWithTheSameShortUUID && get(model, "id") !== urlEquivalenceWithTheSameShortUUID.id) {
             return transformAndValidate(DuplicatedShortUUIDError, {
-                shortUUID: model.url,
+                shortUUID: model.shortUUID,
             });
         }
     }

@@ -16,6 +16,6 @@ export class DuplicatedShortUUIDError extends ConflictDomainError {
     
     
     public describe() : string {
-        return `Already exists an short url equivalence with url: ${this.shortUUID}.`;
+        return `Already exists an short url equivalence with short-uuid: ${this.shortUUID}.`;
     }
 }
