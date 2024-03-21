@@ -11,26 +11,33 @@ datasource db {
 }
 
 model PrismaShortURLEquivalence {
-    id                      Int           @id @default(autoincrement())
-    url                     String        @unique @db.VarChar(512)
-    shortUUID               String       @unique @db.VarChar(128)
-    createdAt               DateTime      @default(now()) @db.Timestamptz
-    updatedAt               DateTime      @updatedAt @db.Timestamptz
-    shortURLEquivalence     PrismaShortURLRegistry?
-    
+  id                  Int                     @id @default(autoincrement())
+  url                 String                  @unique @db.VarChar(512)
+  shortUUID           String                  @unique @db.VarChar(128)
+  createdAt           DateTime                @default(now()) @db.Timestamptz
+  updatedAt           DateTime                @updatedAt @db.Timestamptz
+  shortURLEquivalence PrismaShortURLRegistry?
 
-    @@map("short-url-equivalences")
+  @@map("short-url-equivalences")
 }
 
-
 model PrismaShortURLRegistry {
-    id                        Int                           @id @default(autoincrement())
-    numberOfRequests          Int                           @db.Integer()
-    createdAt                 DateTime                      @default(now()) @db.Timestamptz
-    updatedAt                 DateTime                      @updatedAt @db.Timestamptz
-    shortURLEquivalence       PrismaShortURLEquivalence     @relation(fields: [shortURLEquivalenceId], references: [id])
-    shortURLEquivalenceId     Int                           @unique
+  id                    Int                       @id @default(autoincrement())
+  numberOfRequests      Int                       @db.Integer()
+  createdAt             DateTime                  @default(now()) @db.Timestamptz
+  updatedAt             DateTime                  @updatedAt @db.Timestamptz
+  shortURLEquivalence   PrismaShortURLEquivalence @relation(fields: [shortURLEquivalenceId], references: [id])
+  shortURLEquivalenceId Int                       @unique
 
+  @@map("short-url-registries")
+}
 
-    @@map("short-url-registries")
+model PrismaUser {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.Text()
+  name      String   @db.Text()
+  surname   String   @db.Text()
+  age       Int      @db.Integer()
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
 }
