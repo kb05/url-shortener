@@ -1,3 +1,6 @@
+# URL-shortener
+A simple project  that creates a URL shortener service, this project uses Nestjs, docker, PostgreSQL and Redis, and implements  a clean architecture.
+
 ## Running the Development Environment
 In `docker/dev`
 ```bash
