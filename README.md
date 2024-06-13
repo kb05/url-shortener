@@ -1,5 +1,12 @@
 # URL-shortener
-A simple project  that creates a URL shortener service, implementing a clean architecture and using Nestjs, Docker, PostgreSQL and Redis.
+A simple project creates a URL shortener service, implementing a clean architecture and using Nestjs, Docker, PostgreSQL, and Redis.
+
+## Create a .env.json file
+This project uses an env file instead common .env file (to experiment with using more types, like array or embedded objects)
+So you need to create a .env.json file before running the project, you could use the provided example:
+```bash
+$ cp .env.example.json .env.json
+```
 
 ## Running the Development Environment
 In `docker/dev`
