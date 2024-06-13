@@ -13,7 +13,7 @@ export class ShortURLEquivalence extends EntityModel {
 
     @Documentation({
         description : "The original url",
-        example     : "https://www.reactable.ai/",
+        example     : "https://stackoverflow.com/",
     })
     @IsNotEmptyString(AppStringSize.MEDIUM)
     @IsValidUrl()

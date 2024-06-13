@@ -11,7 +11,7 @@ export class CreateShortURLEquivalenceResponse extends Model {
 
     @Documentation({
         description : "The original url",
-        example     : "https://www.reactable.ai/",
+        example     : "https://stackoverflow.com/",
     })
     @IsNotEmptyString(AppStringSize.MEDIUM)
     @IsValidUrl()
